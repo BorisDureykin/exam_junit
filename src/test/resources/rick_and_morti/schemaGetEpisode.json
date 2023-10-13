@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "air_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "episode": {
+      "type": "string"
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "air_date",
+    "episode",
+    "characters",
+    "url",
+    "created"
+  ]
+}
