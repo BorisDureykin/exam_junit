@@ -14,9 +14,8 @@ import static util.Config.getConfigValue;
 
 public class OpenUrl {
 
-    public static void openUrl(String keyUrl) {
+    public static void openUrl(String url) {
 
-        String url = getConfigValue(keyUrl);
         step("Открываем: " + url , () -> {
             open(url);
             getWebDriver().manage().window().maximize();
@@ -26,10 +25,8 @@ public class OpenUrl {
         });
     }
 
-    public static void checkUrlAndTitlePage(String keyUrl, String keyPageTitle) {
+    public static void checkUrlAndTitlePage(String url, String pageTitle) {
 
-        String url = getConfigValue(keyUrl);
-        String pageTitle = getConfigValue(keyPageTitle);
         step("Проверяем URL: " + url+", и TitlePage: " +pageTitle, () -> {
             saveScreenshot("Step Screenshot");
             Assertions.assertTrue(titlePage.shouldBe(Condition.hidden).getOwnText().contains(pageTitle), "Заголовок страницы не содержит 'System Dashboard - Jira'");

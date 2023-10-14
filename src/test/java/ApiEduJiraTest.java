@@ -1,5 +1,3 @@
-package objects;
-
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -12,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static objects.steps.edu_jira_api.AuthorizationSessionId.authorizationSessionId;
 import static objects.steps.edu_jira_api.BaseAuthorizationRequest.baseAuthorizationRequest;
 import static objects.steps.edu_jira_api.CreateIssueApi.createIssueApi;
 import static objects.steps.edu_jira_api.TransitionByStatusesIssueApi.transitionByStatuses;
@@ -19,16 +18,19 @@ import static util.Config.getConfigValue;
 
 @Epic(value = "Api Test")
 @Feature(value = "ifellowEduJira.ru Tests")
-@Story(value = "Api Jira")
-
 public class ApiEduJiraTest extends RequestSpecificationAllTests {
 
-    public RequestSpecification request = requestSpecificationAllTests(getConfigValue("Url"));
+    private RequestSpecification request = requestSpecificationAllTests(getConfigValue("Url"));
+    private String nameCoToProject = "TEST";
+    private String login = getConfigValue("login");
+    private String password = getConfigValue("password");
+    private String endpoint;
+    private String statusCode;
 
-    public String nameCoToProject = "TEST";
 
     @Test
     @DisplayName("Test Open Url")
+    @Story("Open Url")
     @Tag("Api")
     @Tag("EduJira")
     public void testOpenUrl() {
@@ -37,17 +39,52 @@ public class ApiEduJiraTest extends RequestSpecificationAllTests {
     }
 
     @Test
-    @DisplayName("Авторизация и получение sessionId")
+    @DisplayName("Авторизация позитивный кейс")
+    @Story("Authorization")
     @Tag("Api")
     @Tag("EduJira")
-    public void testAuthorization() {
+    public void testAuthorizationPositive() {
 
-        AuthorizationSessionId.authorizationSessionId(request);
+        endpoint = "/rest/auth/1/session";
+        statusCode = "200";
+
+        authorizationSessionId(request, login, password, endpoint, statusCode);
 
     }
 
     @Test
+    @DisplayName("Авторизация Неверный логин")
+    @Story("Authorization")
+    @Tag("Api")
+    @Tag("EduJira")
+    public void testAuthorizationNegativeLogin() {
+
+        login = "Ne tot";
+        endpoint = "/rest/auth/1/session";
+        statusCode = "401";
+
+        authorizationSessionId(request, login, password, endpoint, statusCode);
+    }
+
+    @Test
+    @DisplayName("Авторизация Неверный пароль")
+    @Story("Authorization")
+    @Tag("Api")
+    @Tag("EduJira")
+    public void testAuthorizationNegativePassword() {
+
+        password = "QQQQQQQ";
+        endpoint = "/rest/auth/1/session";
+        statusCode = "401";
+
+        authorizationSessionId(request, login, password, endpoint, statusCode);
+    }
+
+
+
+    @Test
     @DisplayName("Открываем прект и получаем количество задач в проекте")
+    @Story("Go To Project")
     @Tag("Api")
     @Tag("EduJira")
     public void testGoToProject() {
@@ -62,6 +99,7 @@ public class ApiEduJiraTest extends RequestSpecificationAllTests {
 
     @Test
     @DisplayName("Создаем задачу и переводим её по статусам")
+    @Story("Create Issue")
     @Tag("Api")
     @Tag("EduJira")
     public void testCreateIssueAndTransitionByStatuses() {

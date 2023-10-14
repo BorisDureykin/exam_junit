@@ -9,37 +9,39 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 import static util.Config.getConfigValue;
 
 public class AuthorizationSessionId extends ResponseAllTests {
 
     @Step("Авторизация и получение sessionId")
-    public static String authorizationSessionId(RequestSpecification request) {
+    public static void authorizationSessionId(RequestSpecification request
+            , String login
+            , String password
+            , String endpoint
+            , String statusCode) {
+
+        String pathSchema = null;
+        if(Objects.equals(statusCode, "200")){
+            pathSchema = "ifellow_edu_jira/schemaAuth.json";
+        }
 
         try {
 
-            String endpoint = "/rest/auth/1/session";
 
             String body = new String(Files.readAllBytes(Paths.get("src/test/resources/ifellow_edu_jira/bodyAutorization.json")));
 
-            body = body.replace("login", getConfigValue("login"));
+            body = body.replace("login", login);
 
-            body = body.replace("userPassword", getConfigValue("password"));
+            body = body.replace("userPassword", password);
 
-            String pathSchema = "ifellow_edu_jira/schemaAuth.json";
-
-            Response response = responseGet(request, body, endpoint, "POST", "200", pathSchema);
-
-            String responseBody = response.getBody().asString();
-
-            return new JSONObject(responseBody).getJSONObject("session").getString("value");
+            responseGet(request, body, endpoint, "POST", statusCode, pathSchema);
 
         } catch (IOException e) {
 
             e.printStackTrace();
         }
-       return "Ошибка Создания body.";
     }
 
 }

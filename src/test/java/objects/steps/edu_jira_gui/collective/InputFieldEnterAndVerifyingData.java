@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Assertions;
 import static hooks.WebHooks.saveScreenshot;
 
 
-public class EnterAndVerifyingDataInputField {
+public class InputFieldEnterAndVerifyingData {
 
     @Step("Дожидаемся отображения поля ввода \"{elementName}\" и вводим в него \"{valueElement}\"")
-    public static void enterAndVerifyingDataInputField(@NotNull SelenideElement element, String valueElement, String elementName, char key) {
+    public static void inputFieldEnterAndVerifyingData(@NotNull SelenideElement element, String valueElement, String elementName, char key) {
 
         element.shouldBe(Condition.visible).sendKeys(valueElement);
         saveScreenshot("Step Screenshot");

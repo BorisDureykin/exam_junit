@@ -7,10 +7,10 @@ import org.jetbrains.annotations.NotNull;
 
 import static hooks.WebHooks.saveScreenshot;
 
-public class CheckVisibilAndClick {
+public class ButtonCheckVisibilityClick {
 
     @Step("Дожидаемся отображения кнопки \"{elementName}\" и нажимаем на неё")
-    public static void checkVisibilAndClick(@NotNull SelenideElement element, String elementName) {
+    public static void buttonCheckVisibilityClick(@NotNull SelenideElement element, String elementName) {
         element.shouldBe(Condition.visible);
         saveScreenshot("Step Screenshot");
         assert element.is(Condition.visible) : elementName + " не отражается на странице или не кликабельна.";

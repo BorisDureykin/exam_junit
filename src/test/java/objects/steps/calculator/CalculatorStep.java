@@ -19,7 +19,7 @@ public class CalculatorStep {
         this.num2 = num2;
     }
 
-    @Step("Тогда выполняем действие")
+    @Step("Выполняем действие")
     public void performingAction(String action) {
         if (action.length() == 1) {
             this.action = action.charAt(0);
@@ -28,7 +28,7 @@ public class CalculatorStep {
         }
     }
 
-    @Step("Тогда результат равен")
+    @Step("Результат равен")
     public void resultIsEqual(double res1) {
         switch (action) {
             case '+':

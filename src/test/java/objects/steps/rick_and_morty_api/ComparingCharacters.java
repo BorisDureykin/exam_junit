@@ -2,10 +2,10 @@ package objects.steps.rick_and_morty_api;
 
 import io.qameta.allure.Step;
 
-public class СomparingСharacters {
+public class ComparingCharacters {
 
     @Step("Сравнение данных персонажей")
-    public static void comparingСharacters(GetCharacter getCharacter1, GetCharacter getCharacter2) {
+    public static void comparingCharacters(GetCharacter getCharacter1, GetCharacter getCharacter2) {
 
         String species = getCharacter1.getSpecies();
 

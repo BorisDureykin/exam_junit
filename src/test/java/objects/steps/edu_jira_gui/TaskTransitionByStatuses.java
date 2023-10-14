@@ -4,7 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import objects.elements.EdujiraIfellowRuSecureDashboard;
-import objects.steps.edu_jira_gui.collective.CheckVisibilAndClick;
+import objects.steps.edu_jira_gui.collective.ButtonCheckVisibilityClick;
 import objects.steps.edu_jira_gui.collective.InputIframe;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -22,20 +22,20 @@ public class TaskTransitionByStatuses extends EdujiraIfellowRuSecureDashboard {
         getWebDriver().manage().window().maximize();
         assert $(By.tagName("body")).shouldBe(Condition.visible).exists() : "Body нет на странице.";
 
-        CheckVisibilAndClick.checkVisibilAndClick(inWorkButton, "В работе");
-        CheckVisibilAndClick.checkVisibilAndClick(closeButton, "closeButton");
+        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(inWorkButton, "В работе");
+        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(closeButton, "closeButton");
 
-        CheckVisibilAndClick.checkVisibilAndClick(businessProcessButton, "Бизнес процесс");
-        CheckVisibilAndClick.checkVisibilAndClick(executedButton, "Исполнено");
+        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(businessProcessButton, "Бизнес процесс");
+        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(executedButton, "Исполнено");
         InputIframe.inputIframe("Комментарий", "Комментарий Задачи 'Исполнено'");
-        CheckVisibilAndClick.checkVisibilAndClick(executedButtonForm, "Исполнено На форме Исполнено");
-        CheckVisibilAndClick.checkVisibilAndClick(closeButton, "closeButton");
+        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(executedButtonForm, "Исполнено На форме Исполнено");
+        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(closeButton, "closeButton");
 
-        CheckVisibilAndClick.checkVisibilAndClick(businessProcessButton, "Бизнес процесс");
-        CheckVisibilAndClick.checkVisibilAndClick(confirmedButton, "Подтверждено");
+        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(businessProcessButton, "Бизнес процесс");
+        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(confirmedButton, "Подтверждено");
         InputIframe.inputIframe("Комментарий", "Комментарий Задачи 'Подтверждено'");
-        CheckVisibilAndClick.checkVisibilAndClick(confirmedButtonForm, "Подтверждено На форме Подтверждено");
-        CheckVisibilAndClick.checkVisibilAndClick(closeButton, "closeButton");
+        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(confirmedButtonForm, "Подтверждено На форме Подтверждено");
+        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(closeButton, "closeButton");
 
         Assertions.assertEquals("Готово", issueStatus.getOwnText(), "Не верный статус задачи");
     }
