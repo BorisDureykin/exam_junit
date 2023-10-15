@@ -32,7 +32,7 @@ public class GoToProjectAntCountIssues extends EdujiraIfellowRuSecureDashboard {
         return newCountIssues;
     }
 
-    @Step("Получение количества задач в проекте:  {nameCoToProject}")
+    @Step("Сравнение количества задач в проекте:  {nameCoToProject} ожидаемое значение:  {countIssues}")
     public static void comparingCountIssues(String nameCoToProject, String newCountIssues, String countIssues) {
 
         assertEqualUtil(countIssues, newCountIssues, "Количество задач в проекте: "+ nameCoToProject +"Составляет: "+ countIssues+", Отображается : "+ newCountIssues );
