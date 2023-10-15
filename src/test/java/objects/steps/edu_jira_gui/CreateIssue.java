@@ -9,7 +9,6 @@ import objects.steps.edu_jira_gui.collective.InputIframe;
 import static hooks.WebHooks.saveScreenshot;
 import static io.qameta.allure.Allure.step;
 import static objects.elements.CreateIssueForm.*;
-import static util.Config.getConfigValue;
 
 public class CreateIssue extends EdujiraIfellowRuSecureDashboard {
 
@@ -40,12 +39,13 @@ public class CreateIssue extends EdujiraIfellowRuSecureDashboard {
             ButtonCheckVisibilityClick.buttonCheckVisibilityClick(createIssueButton, "Create Issues Button");
 
             String newIssueKey = returnIssueKey.shouldBe(Condition.visible).getOwnText();
-            saveScreenshot("Step Screenshot");
 
             assert returnIssueKey.is(Condition.visible) : "Задача не создана";
             String target = " - " + inputTopic;
             issueKey = newIssueKey.replace(target, "");
             assert !issueKey.isEmpty() : "Нет номера задачи.";
+            saveScreenshot("Создана задача №: " + newIssueKey);
+
         });
     }
 }

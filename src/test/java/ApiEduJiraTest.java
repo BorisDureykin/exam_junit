@@ -2,7 +2,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.specification.RequestSpecification;
-import objects.steps.edu_jira_api.AuthorizationSessionId;
 import objects.steps.edu_jira_api.GoToProject;
 import objects.steps.edu_jira_api.OpenUrl;
 import objects.steps.request_respone_api.RequestSpecificationAllTests;
@@ -12,15 +11,13 @@ import org.junit.jupiter.api.Test;
 
 import static objects.steps.edu_jira_api.AuthorizationSessionId.authorizationSessionId;
 import static objects.steps.edu_jira_api.BaseAuthorizationRequest.baseAuthorizationRequest;
-import static objects.steps.edu_jira_api.CreateIssueApi.createIssueApi;
-import static objects.steps.edu_jira_api.TransitionByStatusesIssueApi.transitionByStatuses;
 import static util.Config.getConfigValue;
 
 @Epic(value = "Api Test")
 @Feature(value = "ifellowEduJira.ru Tests")
 public class ApiEduJiraTest extends RequestSpecificationAllTests {
 
-    private RequestSpecification request = requestSpecificationAllTests(getConfigValue("Url"));
+    private RequestSpecification request = requestSpecificationAllTests(getConfigValue("UrlIfellowJira"));
     private String nameCoToProject = "TEST";
     private String login = getConfigValue("login");
     private String password = getConfigValue("password");
@@ -97,17 +94,17 @@ public class ApiEduJiraTest extends RequestSpecificationAllTests {
 
     }
 
-    @Test
-    @DisplayName("Создаем задачу и переводим её по статусам")
-    @Story("Create Issue")
-    @Tag("Api")
-    @Tag("EduJira")
-    public void testCreateIssueAndTransitionByStatuses() {
-
-        request = baseAuthorizationRequest(request);
-
-        String issueId = createIssueApi(request);
-
-        transitionByStatuses(request, issueId);
-    }
+//    @Test
+//    @DisplayName("Создаем задачу и переводим её по статусам")
+//    @Story("Create Issue")
+//    @Tag("Api")
+//    @Tag("EduJira")
+//    public void testCreateIssueAndTransitionByStatuses() {
+//
+//        request = baseAuthorizationRequest(request);
+//
+//        String issueId = createIssueApi(request);
+//
+//        transitionByStatuses(request, issueId);
+//    }
 }

@@ -6,7 +6,6 @@ import objects.elements.EdujiraIfellowRuSecureDashboard;
 import objects.steps.edu_jira_gui.collective.ButtonCheckVisibilityClick;
 
 import static io.qameta.allure.Allure.step;
-import static util.Config.getConfigValue;
 
 
 public class GoToProjectAntCountIssues extends EdujiraIfellowRuSecureDashboard {

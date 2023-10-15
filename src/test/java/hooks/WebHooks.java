@@ -3,8 +3,6 @@ package hooks;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Scenario;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
@@ -25,15 +23,13 @@ public class WebHooks {
     }
     @Attachment(value = "{nameScreenshot}", type = "image/png")
     public static byte[] saveScreenshot(String nameScreenshot) {
-        byte[] screenshot = Selenide.screenshot(OutputType.BYTES);
-        return screenshot;
+        return Selenide.screenshot(OutputType.BYTES);
     }
-
 
     @AfterEach
     public void afterClass() {
 
-        saveScreenshot("After Test Screenshot");
+        saveScreenshot("Screenshot After Test ");
         WebDriverRunner.closeWebDriver();
         SelenideLogger.removeListener("Allureselenide");
     }

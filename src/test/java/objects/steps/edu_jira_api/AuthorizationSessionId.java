@@ -1,21 +1,17 @@
 package objects.steps.edu_jira_api;
 
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import objects.steps.request_respone_api.ResponseAllTests;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-import static util.Config.getConfigValue;
-
 public class AuthorizationSessionId extends ResponseAllTests {
 
-    @Step("Авторизация и получение sessionId")
+    @Step("Авторизация")
     public static void authorizationSessionId(RequestSpecification request
             , String login
             , String password

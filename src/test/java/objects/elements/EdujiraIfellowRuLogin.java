@@ -16,4 +16,7 @@ public class EdujiraIfellowRuLogin {
 
     public static SelenideElement battonLogin = $x("//input[@id='login' and @value='Войти']");
 
+    public static SelenideElement userNameError = $x(" //div[@id='usernameerror']/p");
+
+
 }

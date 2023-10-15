@@ -4,7 +4,6 @@ import io.qameta.allure.Story;
 import io.restassured.specification.RequestSpecification;
 import objects.steps.request_respone_api.RequestSpecificationAllTests;
 import objects.steps.rick_and_morty_api.GetCharacter;
-import objects.steps.rick_and_morty_api.GetEpisode;
 import objects.steps.rick_and_morty_api.OpenUrlRickAndMorty;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

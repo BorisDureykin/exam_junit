@@ -9,6 +9,7 @@ import static com.codeborne.selenide.Selenide.switchTo;
 import static hooks.WebHooks.saveScreenshot;
 import static objects.elements.CreateIssueForm.iframeInput;
 import static objects.elements.CreateIssueForm.iframeInputField;
+import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertEqualUtils;
 
 public class InputIframe {
 
@@ -16,8 +17,8 @@ public class InputIframe {
     public static void inputIframe(String name, String valueText) {
         switchTo().frame(iframeInput(name));
         iframeInputField.shouldBe(Condition.enabled).setValue(valueText);
-        saveScreenshot("Step Screenshot");
-        Assertions.assertEquals(valueText, iframeInputField.getOwnText(), "В iFrame " + name + " Введено неверное значение.");
+        assertEqualUtils(valueText, iframeInputField.getOwnText(), "В iFrame " + name + " Введено неверное значение.");
+        saveScreenshot("Дожидаемся отображения iFrame: " +name+ " и вводим в поле ввода: "+valueText);
         switchTo().defaultContent();
     }
 
