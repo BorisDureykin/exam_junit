@@ -3,13 +3,18 @@ import hooks.WebHooks;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.restassured.specification.RequestSpecification;
+import objects.steps.edu_jira_api.GoToProjectCountIssue;
+import objects.steps.edu_jira_gui.CreateIssue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static objects.steps.edu_jira_gui.GoToProjectAntCountIssues.countIssues;
-import static objects.steps.edu_jira_gui.GoToProjectAntCountIssues.goToProjectAntCountIssues;
+import static objects.steps.edu_jira_gui.GoToProjectAntCountIssues.*;
+import static objects.steps.edu_jira_api.BaseAuthorizationRequest.baseAuthorizationRequest;
+import static objects.steps.edu_jira_api.GoToProjectCountIssue.getCountIssuesInProjectApi;
+import static objects.steps.edu_jira_gui.CreateIssue.createIssue;
 import static objects.steps.edu_jira_gui.Login.authorization;
 import static objects.steps.edu_jira_gui.Login.invalidAuthorization;
 import static objects.steps.edu_jira_gui.OpenUrl.checkUrlAndTitlePage;
@@ -17,6 +22,8 @@ import static objects.steps.edu_jira_gui.OpenUrl.openUrl;
 import static objects.steps.edu_jira_gui.ProfileIn.checkProfileIn;
 import static objects.steps.edu_jira_gui.ProfileIn.profileIn;
 import static objects.steps.edu_jira_gui.SearchIssue.*;
+import static objects.steps.edu_jira_gui.TaskTransitionByStatuses.taskTransitionByStatuses;
+import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static util.Config.getConfigValue;
 
 
@@ -26,32 +33,33 @@ import static util.Config.getConfigValue;
 
 public class GuiEduJiraTest extends WebHooks {
 
-    private final String url = getConfigValue("UrlIfellowJira");
+    private String url = getConfigValue("UrlIfellowJira");
+    private RequestSpecification request = requestSpecificationAllTests(url);
     private String login = getConfigValue("login");
     private String password = getConfigValue("password");
     private final String pageTitle = "System Dashboard - Jira";
-    private final String nameCoToProject = "Test (TEST)";
+    private final String nameCoToProject = "TEST";
     private final String taskName = "TestSelenium";
     private final String affectedVersion = "Version 2.0";
-    private final String inputTopic = "Create Issue student AT14 GUI";
+    private String inputTopic = "Create Issue student AT14 GUI";
     private final String issuesStatus = "Сделать";
 
     @Test
-    @Story("Open Url")
-    @DisplayName("Test Open Url")
+    @Story("Open Url GUI")
+    @DisplayName("Проверка доступности сайта")
     @Tag("GUI")
     @Tag("EduJira")
-    public void TestOpenUrl() {
+    public void testOpenUrl() {
         openUrl(url);
         checkUrlAndTitlePage(url, pageTitle);
     }
 
     @Test
-    @Story("Authorization")
+    @Story("Authorization GUI")
     @DisplayName("Авторизация позитивный кейс")
     @Tag("GUI")
     @Tag("EduJira")
-    public void TestAuthorizationPositive() {
+    public void testAuthorizationPositive() {
         openUrl(url);
         authorization(login, password);
         profileIn();
@@ -60,11 +68,11 @@ public class GuiEduJiraTest extends WebHooks {
     }
 
     @Test
-    @Story("Authorization")
+    @Story("Authorization GUI")
     @DisplayName("Авторизация ненверный логин")
     @Tag("GUI")
     @Tag("EduJira")
-    public void TestAuthorizationInvalidLogin() {
+    public void testAuthorizationInvalidLogin() {
 
         login = "AAAA";
         openUrl(url);
@@ -73,11 +81,11 @@ public class GuiEduJiraTest extends WebHooks {
 
     }
     @Test
-    @Story("Authorization")
+    @Story("Authorization GUI")
     @DisplayName("Авторизация ненверный пароль")
     @Tag("GUI")
     @Tag("EduJira")
-    public void TestAuthorizationInvalidPassword() {
+    public void testAuthorizationInvalidPassword() {
 
         password = "qwerty";
         openUrl(url);
@@ -87,40 +95,61 @@ public class GuiEduJiraTest extends WebHooks {
 
 
     @Test
-    @Story("Go To Project")
-    @DisplayName("Test Go To Project")
+    @Story("Go To Project GUI")
+    @DisplayName("Вход в проект TEST и проверка количества задач в проекте")
     @Tag("GUI")
     @Tag("EduJira")
-    public void TestGoToProject() {
+    public void testGoToProject() {
         openUrl(url);
         authorization(login, password);
         goToProjectAntCountIssues(nameCoToProject);
-        countIssues(nameCoToProject);
+        String newCountIssues = countIssues(nameCoToProject);
+
+        request = baseAuthorizationRequest(request);
+        String projectKey = GoToProjectCountIssue.getProjectKey(nameCoToProject, request);
+        String countIssues = getCountIssuesInProjectApi(projectKey, request);
+        comparingCountIssues(nameCoToProject, newCountIssues,countIssues);
     }
 
     @Test
     @Story("Task Search")
-    @DisplayName("Test Task Search")
+    @DisplayName("Поиск задачи и проверка статуса задачи и поля Затронуты версии")
     @Tag("GUI")
     @Tag("EduJira")
-    public void TestTaskSearch() {
+    public void testTaskSearch() {
         openUrl(url);
         authorization(login, password);
         profileIn();
         searchIssue(taskName);
-        checkAffectedIssue(affectedVersion);
         checkStatusIssue(issuesStatus);
+        checkAffectedIssue(affectedVersion);
     }
 
-//    @Test
-//    @Story("Create Issue")
-//    @DisplayName("Test Create Issue And Transition By Statuses")
-//    @Tag("GUI")
-//    @Tag("EduJira")
-//    public void TestCreateIssueAndTransitionByStatuses() {
-//        openUrl(url);
-//        authorization(login, password);
-//        createIssue(inputTopic);
-//        taskTransitionByStatuses();
-//    }
+    @Test
+    @Story("Create Issue GUI")
+    @DisplayName("Создание задачи и перевод её по статусам")
+    @Tag("GUI")
+    @Tag("EduJira")
+    public void testCreateIssueAndTransitionByStatuses() {
+        openUrl(url);
+        authorization(login, password);
+        createIssue(inputTopic);
+        url = getConfigValue("issueUrl") + CreateIssue.issueKey;
+        openUrl(url);
+        taskTransitionByStatuses();
+    }
+
+    @Test
+    @Story("Create Issue GUI")
+    @DisplayName("Проверка появления предупреждения и невозможности создания задачи без заполнения поля 'Тема' ")
+    @Tag("GUI")
+    @Tag("EduJira")
+    public void testCreateIssueInvalidTopic() {
+        openUrl(url);
+        authorization(login, password);
+        inputTopic="";
+        createIssue(inputTopic);
+    }
+
+
 }

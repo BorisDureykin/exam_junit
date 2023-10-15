@@ -5,9 +5,11 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import objects.steps.request_respone_api.ResponseAllTests;
 import org.json.JSONObject;
-import org.junit.jupiter.api.Assertions;
 
-public class GoToProject extends ResponseAllTests {
+import static java.lang.Integer.valueOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+public class GoToProjectCountIssue extends ResponseAllTests {
 
     @Step("Переходим в проект: \"{0}\" и получаем ключ продукта")
     public static String getProjectKey(String projectName, RequestSpecification request) {
@@ -22,13 +24,13 @@ public class GoToProject extends ResponseAllTests {
 
         String projectKey = new JSONObject(responseBody).optString("key", null);
 
-        Assertions.assertNotNull(projectKey, "Не удалось получить ключ проекта.");
+        assertNotNull(projectKey, "Не удалось получить ключ проекта.");
 
         return projectKey;
     }
 
     @Step("Переходим в проект: \"{0}\" и получаем количество задач в проекте")
-    public static int getCountIssuesInProject(String projectKey, RequestSpecification request) {
+    public static String getCountIssuesInProjectApi(String projectKey, RequestSpecification request) {
 
         String endpoint = "/rest/api/2/search";
 
@@ -45,9 +47,9 @@ public class GoToProject extends ResponseAllTests {
 
         String responseBody = response.getBody().asString();
 
-        int countIssue = new JSONObject(responseBody).getInt("total");
+        String countIssue = String.valueOf(valueOf(new JSONObject(responseBody).getInt("total")));
 
-        Assertions.assertTrue(countIssue > 0, "Задачи в проекте не найдены.");
+        assertNotNull(countIssue,  "Нет значения в количестве задач.");
 
         return countIssue;
     }

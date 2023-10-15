@@ -2,14 +2,15 @@ package objects.steps.edu_jira_gui.collective;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static hooks.WebHooks.saveScreenshot;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AssertionUtils {
 
-    public static void assertEqualUtils(String expected, String actual, String message) {
+    @Step("Сверяем значения: \"{expected}\" и: \"{actual}\" , в случае ошибки выводим: \"{message}\"")
+    public static void assertEqualUtil(String expected, String actual, String message) {
         try {
 
             assertEquals(expected, actual, message);
@@ -20,15 +21,18 @@ public class AssertionUtils {
         }
     }
 
+    @Step("Сверяем значения: \"{expected}\" и: \"{actual}\" , в случае ошибки выводим: \"{message}\"")
     public static void assertTrueContains(String expected, String actual, String message) {
         try {
 
-            assertTrue(actual.contains(expected), message);        } catch (AssertionError e) {
+            assertTrue(actual.contains(expected), message);
+        } catch (AssertionError e) {
             saveScreenshot(message);
             throw e;
         }
     }
 
+    @Step("Проверяем видимость: \"{element}\" , в случае отсутствия выводим: \"{message}\"")
     public static void assertTrueVisible(SelenideElement element, String message) {
         try {
             element.shouldBe(Condition.visible);
@@ -38,5 +42,16 @@ public class AssertionUtils {
             throw e;
         }
     }
+    @Step("Проверяем на наличие значения : \"{value}\" , в случае отсутствия выводим: \"{message}\"")
+    public static void assertNotNullUtil(String value, String message) {
+        try {
+            assertNotNull(value,  message);
+
+        } catch (AssertionError e) {
+            saveScreenshot(message);
+            throw e;
+        }
+    }
+
 
 }

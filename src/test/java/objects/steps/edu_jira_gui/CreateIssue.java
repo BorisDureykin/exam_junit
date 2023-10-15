@@ -9,6 +9,7 @@ import objects.steps.edu_jira_gui.collective.InputIframe;
 import static hooks.WebHooks.saveScreenshot;
 import static io.qameta.allure.Allure.step;
 import static objects.elements.CreateIssueForm.*;
+import static objects.steps.edu_jira_gui.collective.AssertionUtils.*;
 
 public class CreateIssue extends EdujiraIfellowRuSecureDashboard {
 
@@ -18,7 +19,8 @@ public class CreateIssue extends EdujiraIfellowRuSecureDashboard {
 
         step("Создаем задачу с типом Ошибка и темой: " + inputTopic + " и получаем номер созданной задачи", () -> {
             ButtonCheckVisibilityClick.buttonCheckVisibilityClick(createBatton, "Create Button");
-            issueTypeSelect.shouldBe(Condition.visible).doubleClick();
+            assertTrueVisible(issueTypeSelect, "Не отображаестя селектор Тип Задачи.");
+            issueTypeSelect.doubleClick();
             InputFieldEnterAndVerifyingData.inputFieldEnterAndVerifyingData(issueTypeSelect, "Ошибка", "Тип Задачи", '1');
             InputFieldEnterAndVerifyingData.inputFieldEnterAndVerifyingData(issueSummary, inputTopic, "Тема", '0');
             InputIframe.inputIframe("Описание", "Описание Задачи");
@@ -35,17 +37,21 @@ public class CreateIssue extends EdujiraIfellowRuSecureDashboard {
             ButtonCheckVisibilityClick.buttonCheckVisibilityClick(issueSlectorClik, "Задача селектор");
             ButtonCheckVisibilityClick.buttonCheckVisibilityClick(issueSlector, "Выбор 3 Задачи");
             ButtonCheckVisibilityClick.buttonCheckVisibilityClick(assignMeButton, "Назначить меня");
-
             ButtonCheckVisibilityClick.buttonCheckVisibilityClick(createIssueButton, "Create Issues Button");
 
-            String newIssueKey = returnIssueKey.shouldBe(Condition.visible).getOwnText();
+            if (inputTopic.isEmpty()){
+                assertTrueVisible(summaryDescriptionError, "Не отображаестя предупреждение.");
+                assertTrueContains("Вы должны определить тему по запросу.", summaryDescriptionError.getOwnText(), "Сообщение не верно.");
+                saveScreenshot("Проверка ошибки создания задачи и вывод сообщения об ошибке: 'Вы должны определить тему по запросу.'");
 
-            assert returnIssueKey.is(Condition.visible) : "Задача не создана";
-            String target = " - " + inputTopic;
-            issueKey = newIssueKey.replace(target, "");
-            assert !issueKey.isEmpty() : "Нет номера задачи.";
-            saveScreenshot("Создана задача №: " + newIssueKey);
-
+            }else {
+                assertTrueVisible(returnIssueKey, "Не отображаестя сообщение об успешном создании задачи.");
+                String newIssueKey = returnIssueKey.shouldBe(Condition.visible).getOwnText();
+                String target = " - " + inputTopic;
+                issueKey = newIssueKey.replace(target, "");
+                assertNotNullUtil(issueKey, "Нет номера задачи.");
+                saveScreenshot("Создана задача №: " + issueKey);
+            }
         });
     }
 }

@@ -4,7 +4,8 @@ import io.qameta.allure.Step;
 import objects.elements.EdujiraIfellowRuSecureDashboard;
 
 import static hooks.WebHooks.saveScreenshot;
-import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertEqualUtils;
+import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertEqualUtil;
+import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertTrueVisible;
 import static objects.steps.edu_jira_gui.collective.ButtonCheckVisibilityClick.buttonCheckVisibilityClick;
 import static objects.steps.edu_jira_gui.collective.InputFieldEnterAndVerifyingData.inputFieldEnterAndVerifyingData;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,21 +19,22 @@ public class SearchIssue extends EdujiraIfellowRuSecureDashboard {
         buttonCheckVisibilityClick(issueLink, "issueLink");
     }
 
-    @Step("Сверяем поле 'затронуты версии': {affectedVersion}")
+    @Step("Сверяем поле 'затронуты версии', ожидаемое значение:  {affectedVersion}")
     public static void checkAffectedIssue(String affectedVersion) {
 
+        assertTrueVisible(issueVersions, "Не отображается  поле 'затронуты версии'");
         String actualVersion = issueVersions.getOwnText();
-        assertEqualUtils(affectedVersion, actualVersion, "Ошибка заполнения поля 'затронуты версии'");
-        saveScreenshot("Сверяем поле 'затронуты версии': " + affectedVersion);
+        assertEqualUtil(affectedVersion, actualVersion, "Ошибка заполнения поля 'затронуты версии'");
+        saveScreenshot("Сверяем поле 'затронуты версии', ожидаемое значение: " + affectedVersion);
     }
 
 
-    @Step("Сверяем статус задачи: {issuesStatus}")
+    @Step("Сверяем статус задачи, ожидаемое значение: {issuesStatus}")
     public static void checkStatusIssue(String issuesStatus) {
 
+        assertTrueVisible(issueStatus, "Не отображается  поле 'статус задачи'");
         String actualStatus = issueStatus.getOwnText();
-        System.out.println(actualStatus + issuesStatus);
-        assertEqualUtils(issuesStatus, actualStatus, "Не верный статус задачи");
-        saveScreenshot("Сверяем статус задачи: "+issuesStatus);
+        assertEqualUtil(issuesStatus, actualStatus, "Не верный статус задачи");
+        saveScreenshot("Сверяем статус задачи, ожидаемое значение: "+issuesStatus);
     }
 }
