@@ -5,12 +5,16 @@ import objects.elements.EdujiraIfellowRuSecureDashboard;
 import objects.steps.edu_jira_gui.collective.ButtonCheckVisibilityClick;
 import objects.steps.edu_jira_gui.collective.InputIframe;
 
+import static objects.steps.edu_jira_gui.OpenUrl.openUrl;
 import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertEqualUtil;
+import static util.Config.getConfigValue;
 
 public class TaskTransitionByStatuses extends EdujiraIfellowRuSecureDashboard {
 
     @Step("Переводим созданную задачу по статусам")
     public static void taskTransitionByStatuses() {
+        String  url = getConfigValue("issueUrl") + CreateIssue.issueKey;
+        openUrl(url);
 
         ButtonCheckVisibilityClick.buttonCheckVisibilityClick(inWorkButton, "В работе");
         ButtonCheckVisibilityClick.buttonCheckVisibilityClick(closeButton, "closeButton");

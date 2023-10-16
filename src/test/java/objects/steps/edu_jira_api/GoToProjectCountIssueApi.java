@@ -7,12 +7,21 @@ import objects.steps.request_respone_api.ResponseAllTests;
 import org.json.JSONObject;
 
 import static java.lang.Integer.valueOf;
+import static objects.steps.edu_jira_api.BaseAuthorizationRequest.baseAuthorizationRequest;
+import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static util.Config.getConfigValue;
 
-public class GoToProjectCountIssue extends ResponseAllTests {
+public class GoToProjectCountIssueApi extends ResponseAllTests {
+
+    private static RequestSpecification request = requestSpecificationAllTests(getConfigValue("UrlIfellowJira"));
+
+    public static String countIssueApi;
 
     @Step("Переходим в проект: \"{0}\" и получаем ключ продукта")
-    public static String getProjectKey(String projectName, RequestSpecification request) {
+    public static void getProjectKey(String projectName) {
+
+        request = baseAuthorizationRequest(request);
 
         String endpoint = "/rest/api/2/project/" + projectName;
 
@@ -26,11 +35,12 @@ public class GoToProjectCountIssue extends ResponseAllTests {
 
         assertNotNull(projectKey, "Не удалось получить ключ проекта.");
 
-        return projectKey;
     }
 
     @Step("Переходим в проект: \"{0}\" и получаем количество задач в проекте")
-    public static String getCountIssuesInProjectApi(String projectKey, RequestSpecification request) {
+    public static void getCountIssuesInProjectApi(String projectKey) {
+
+        request = baseAuthorizationRequest(request);
 
         String endpoint = "/rest/api/2/search";
 
@@ -47,11 +57,10 @@ public class GoToProjectCountIssue extends ResponseAllTests {
 
         String responseBody = response.getBody().asString();
 
-        String countIssue = String.valueOf(valueOf(new JSONObject(responseBody).getInt("total")));
+        countIssueApi = String.valueOf(valueOf(new JSONObject(responseBody).getInt("total")));
 
-        assertNotNull(countIssue,  "Нет значения в количестве задач.");
+        assertNotNull(countIssueApi,  "Нет значения в количестве задач.");
 
-        return countIssue;
     }
 
 }

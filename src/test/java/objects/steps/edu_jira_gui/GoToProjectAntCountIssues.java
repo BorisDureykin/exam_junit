@@ -8,11 +8,16 @@ import objects.steps.edu_jira_gui.collective.ButtonCheckVisibilityClick;
 import static hooks.WebHooks.saveScreenshot;
 import static io.qameta.allure.Allure.step;
 import static objects.elements.EdujiraIfellowRuProjectsTestIssues.countIssues;
+import static objects.steps.edu_jira_api.GoToProjectCountIssueApi.countIssueApi;
 import static objects.steps.edu_jira_gui.collective.AssertionUtils.*;
 
 
 public class GoToProjectAntCountIssues extends EdujiraIfellowRuSecureDashboard {
 
+    private static String newCountIssuesGui;
+
+
+    @Step("Заходим в проект: {nameCoToProject}")
     public static void goToProjectAntCountIssues(String nameCoToProject) {
 
         step("Заходим в проект: " + nameCoToProject, () -> {
@@ -23,19 +28,18 @@ public class GoToProjectAntCountIssues extends EdujiraIfellowRuSecureDashboard {
     }
 
     @Step("Получение количества задач в проекте:  {nameCoToProject}")
-    public static String countIssues(String nameCoToProject) {
+    public static void countIssues(String nameCoToProject) {
 
         assertTrueVisible(countIssues, "Количество задач не отображается.");
-        String newCountIssues = countIssues.getOwnText().replace("1 из ", "");
-        assertNotNullUtil(newCountIssues,  "Нет значения в количестве задач.");
+        newCountIssuesGui = countIssues.getOwnText().replace("1 из ", "");
+        assertNotNullUtil(newCountIssuesGui,  "Нет значения в количестве задач.");
         saveScreenshot("Получение количества задач в проекте: " + nameCoToProject);
-        return newCountIssues;
     }
 
     @Step("Сравнение количества задач в проекте:  {nameCoToProject} ожидаемое значение:  {countIssues}")
-    public static void comparingCountIssues(String nameCoToProject, String newCountIssues, String countIssues) {
+    public static void comparingCountIssues(String nameCoToProject) {
 
-        assertEqualUtil(countIssues, newCountIssues, "Количество задач в проекте: "+ nameCoToProject +"Составляет: "+ countIssues+", Отображается : "+ newCountIssues );
+        assertEqualUtil(countIssueApi, newCountIssuesGui, "Количество задач в проекте: "+ nameCoToProject +"Составляет: "+ countIssueApi+", Отображается : "+ newCountIssuesGui);
     }
 }
 

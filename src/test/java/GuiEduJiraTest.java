@@ -4,16 +4,13 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.specification.RequestSpecification;
-import objects.steps.edu_jira_api.GoToProjectCountIssue;
-import objects.steps.edu_jira_gui.CreateIssue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static objects.steps.edu_jira_gui.GoToProjectAntCountIssues.*;
-import static objects.steps.edu_jira_api.BaseAuthorizationRequest.baseAuthorizationRequest;
-import static objects.steps.edu_jira_api.GoToProjectCountIssue.getCountIssuesInProjectApi;
+import static objects.steps.edu_jira_api.GoToProjectCountIssueApi.getCountIssuesInProjectApi;
 import static objects.steps.edu_jira_gui.CreateIssue.createIssue;
 import static objects.steps.edu_jira_gui.Login.authorization;
 import static objects.steps.edu_jira_gui.Login.invalidAuthorization;
@@ -33,16 +30,15 @@ import static util.Config.getConfigValue;
 
 public class GuiEduJiraTest extends WebHooks {
 
-    private String url = getConfigValue("UrlIfellowJira");
-    private RequestSpecification request = requestSpecificationAllTests(url);
+    private final String url = getConfigValue("UrlIfellowJira");
     private String login = getConfigValue("login");
     private String password = getConfigValue("password");
     private final String pageTitle = "System Dashboard - Jira";
     private final String nameCoToProject = "TEST";
     private final String taskName = "TestSelenium";
     private final String affectedVersion = "Version 2.0";
-    private String inputTopic = "Create Issue student AT14 GUI";
     private final String issuesStatus = "Сделать";
+    private String inputTopic = "Create Issue student AT14 GUI";
 
     @Test
     @Story("Open Url GUI")
@@ -103,12 +99,9 @@ public class GuiEduJiraTest extends WebHooks {
         openUrl(url);
         authorization(login, password);
         goToProjectAntCountIssues(nameCoToProject);
-        String newCountIssues = countIssues(nameCoToProject);
-
-        request = baseAuthorizationRequest(request);
-        String projectKey = GoToProjectCountIssue.getProjectKey(nameCoToProject, request);
-        String countIssues = getCountIssuesInProjectApi(projectKey, request);
-        comparingCountIssues(nameCoToProject, newCountIssues,countIssues);
+        countIssues(nameCoToProject);
+        getCountIssuesInProjectApi(nameCoToProject);
+        comparingCountIssues(nameCoToProject);
     }
 
     @Test
@@ -134,8 +127,6 @@ public class GuiEduJiraTest extends WebHooks {
         openUrl(url);
         authorization(login, password);
         createIssue(inputTopic);
-        url = getConfigValue("issueUrl") + CreateIssue.issueKey;
-        openUrl(url);
         taskTransitionByStatuses();
     }
 

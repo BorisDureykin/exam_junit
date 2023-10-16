@@ -2,7 +2,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.specification.RequestSpecification;
-import objects.steps.edu_jira_api.GoToProjectCountIssue;
+import objects.steps.edu_jira_api.GoToProjectCountIssueApi;
 import objects.steps.edu_jira_api.OpenUrl;
 import objects.steps.request_respone_api.RequestSpecificationAllTests;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +12,8 @@ import org.junit.jupiter.api.Test;
 import static objects.steps.edu_jira_api.AuthorizationSessionId.authorizationSessionId;
 import static objects.steps.edu_jira_api.BaseAuthorizationRequest.baseAuthorizationRequest;
 import static objects.steps.edu_jira_api.CreateIssueApi.createIssueApi;
-import static objects.steps.edu_jira_api.GoToProjectCountIssue.getCountIssuesInProjectApi;
+import static objects.steps.edu_jira_api.GoToProjectCountIssueApi.getCountIssuesInProjectApi;
+import static objects.steps.edu_jira_api.GoToProjectCountIssueApi.getProjectKey;
 import static objects.steps.edu_jira_api.TransitionByStatusesIssueApi.transitionByStatuses;
 import static util.Config.getConfigValue;
 
@@ -89,11 +90,10 @@ public class ApiEduJiraTest extends RequestSpecificationAllTests {
     @Tag("EduJira")
     public void testGoToProject() {
 
-        request = baseAuthorizationRequest(request);
 
-        String projectKey = GoToProjectCountIssue.getProjectKey(nameCoToProject, request);
+        getProjectKey(nameCoToProject);
 
-        getCountIssuesInProjectApi(projectKey, request);
+        getCountIssuesInProjectApi(nameCoToProject);
 
     }
 
