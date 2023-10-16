@@ -40,6 +40,7 @@ public class ResponseAllTests {
         }
 
         assert response != null;
+        Allure.addAttachment("API Response", "application/json", response.asString());
 
         response
                 .then()
@@ -53,7 +54,6 @@ public class ResponseAllTests {
                     .body(matchesJsonSchemaInClasspath(pathSchema));
         }
 
-        Allure.addAttachment("API Response", "application/json", response.asString());
         return response;
     }
 }

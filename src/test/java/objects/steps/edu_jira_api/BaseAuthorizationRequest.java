@@ -5,12 +5,17 @@ import io.restassured.specification.RequestSpecification;
 
 import java.util.Base64;
 
+import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static util.Config.getConfigValue;
 
 public class BaseAuthorizationRequest {
 
+
+
     @Step("Создаем RequestSpecification с Basic Authorization")
-    public static RequestSpecification baseAuthorizationRequest(RequestSpecification request) {
+    static RequestSpecification baseAuthorizationRequest() {
+
+        RequestSpecification request = requestSpecificationAllTests(getConfigValue("UrlIfellowJira"));
 
         String loginPasword = getConfigValue("login") + ":" + getConfigValue("password");
 

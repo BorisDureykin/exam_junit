@@ -1,33 +1,31 @@
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.restassured.specification.RequestSpecification;
-import objects.steps.edu_jira_api.GoToProjectCountIssueApi;
-import objects.steps.edu_jira_api.OpenUrl;
 import objects.steps.request_respone_api.RequestSpecificationAllTests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static objects.steps.edu_jira_api.AuthorizationSessionId.authorizationSessionId;
-import static objects.steps.edu_jira_api.BaseAuthorizationRequest.baseAuthorizationRequest;
 import static objects.steps.edu_jira_api.CreateIssueApi.createIssueApi;
 import static objects.steps.edu_jira_api.GoToProjectCountIssueApi.getCountIssuesInProjectApi;
 import static objects.steps.edu_jira_api.GoToProjectCountIssueApi.getProjectKey;
 import static objects.steps.edu_jira_api.TransitionByStatusesIssueApi.transitionByStatuses;
+import static objects.steps.request_respone_api.OpenUrlApi.openUrlApi;
 import static util.Config.getConfigValue;
 
 @Epic(value = "Api Test")
 @Feature(value = "ifellowEduJira.ru Tests")
 public class ApiEduJiraTest extends RequestSpecificationAllTests {
 
-    private RequestSpecification request = requestSpecificationAllTests(getConfigValue("UrlIfellowJira"));
-    private String nameCoToProject = "TEST";
+    private final String keyUrl = "UrlIfellowJira";
     private String login = getConfigValue("login");
     private String password = getConfigValue("password");
+    private String nameCoToProject = "TEST";
     private String endpoint;
+    private String method;
     private String statusCode;
-
+    private String pathSchema;
 
     @Test
     @DisplayName("Test Open Url")
@@ -36,7 +34,15 @@ public class ApiEduJiraTest extends RequestSpecificationAllTests {
     @Tag("EduJira")
     public void testOpenUrl() {
 
-        OpenUrl.openUrlApi(request);
+        endpoint = "/rest/api/2/resolution";
+
+        method = "GET";
+
+        statusCode = "200";
+
+        pathSchema = "ifellow_edu_jira/schemaOpenUrl.json";
+
+        openUrlApi(keyUrl, endpoint, method, statusCode, pathSchema);
     }
 
     @Test
@@ -47,9 +53,14 @@ public class ApiEduJiraTest extends RequestSpecificationAllTests {
     public void testAuthorizationPositive() {
 
         endpoint = "/rest/auth/1/session";
+
+        method = "POST";
+
         statusCode = "200";
 
-        authorizationSessionId(request, login, password, endpoint, statusCode);
+        pathSchema = "ifellow_edu_jira/schemaAuth.json";
+
+        authorizationSessionId(keyUrl, login, password, endpoint, method, statusCode, pathSchema);
 
     }
 
@@ -61,10 +72,14 @@ public class ApiEduJiraTest extends RequestSpecificationAllTests {
     public void testAuthorizationNegativeLogin() {
 
         login = "Ne tot";
+
         endpoint = "/rest/auth/1/session";
+
+        method = "POST";
+
         statusCode = "401";
 
-        authorizationSessionId(request, login, password, endpoint, statusCode);
+        authorizationSessionId(keyUrl, login, password, endpoint, method, statusCode, null);
     }
 
     @Test
@@ -75,13 +90,15 @@ public class ApiEduJiraTest extends RequestSpecificationAllTests {
     public void testAuthorizationNegativePassword() {
 
         password = "QQQQQQQ";
+
         endpoint = "/rest/auth/1/session";
+
+        method = "POST";
+
         statusCode = "401";
 
-        authorizationSessionId(request, login, password, endpoint, statusCode);
+        authorizationSessionId(keyUrl, login, password, endpoint, method, statusCode, null);
     }
-
-
 
     @Test
     @DisplayName("Открываем прект и получаем количество задач в проекте")
@@ -90,11 +107,25 @@ public class ApiEduJiraTest extends RequestSpecificationAllTests {
     @Tag("EduJira")
     public void testGoToProject() {
 
+        endpoint = "/rest/api/2/project/";
 
-        getProjectKey(nameCoToProject);
+        method = "GET";
 
-        getCountIssuesInProjectApi(nameCoToProject);
+        statusCode = "200";
 
+        pathSchema = "ifellow_edu_jira/schemaGetProjectKey.json";
+
+        getProjectKey(nameCoToProject, endpoint, method, statusCode, pathSchema);
+
+        endpoint = "/rest/api/2/search";
+
+        method = "GET";
+
+        statusCode = "200";
+
+        pathSchema = "ifellow_edu_jira/schemaSearch.json";
+
+        getCountIssuesInProjectApi(endpoint, method, statusCode, pathSchema);
     }
 
     @Test
@@ -104,10 +135,16 @@ public class ApiEduJiraTest extends RequestSpecificationAllTests {
     @Tag("EduJira")
     public void testCreateIssueAndTransitionByStatuses() {
 
-        request = baseAuthorizationRequest(request);
+        endpoint = "/rest/api/2/issue";
 
-        String issueId = createIssueApi(request);
+        method = "POST";
 
-        transitionByStatuses(request, issueId);
+        statusCode = "201";
+
+        pathSchema = "ifellow_edu_jira/schemaCreateIssue.json";
+
+        createIssueApi(endpoint, method, statusCode, pathSchema);
+
+        transitionByStatuses();
     }
 }

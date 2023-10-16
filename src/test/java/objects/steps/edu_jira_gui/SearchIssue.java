@@ -8,7 +8,6 @@ import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertEqualUt
 import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertTrueVisible;
 import static objects.steps.edu_jira_gui.collective.ButtonCheckVisibilityClick.buttonCheckVisibilityClick;
 import static objects.steps.edu_jira_gui.collective.InputFieldEnterAndVerifyingData.inputFieldEnterAndVerifyingData;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SearchIssue extends EdujiraIfellowRuSecureDashboard {
 

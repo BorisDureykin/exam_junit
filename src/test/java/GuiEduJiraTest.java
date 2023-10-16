@@ -3,15 +3,15 @@ import hooks.WebHooks;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static objects.steps.edu_jira_gui.GoToProjectAntCountIssues.*;
 import static objects.steps.edu_jira_api.GoToProjectCountIssueApi.getCountIssuesInProjectApi;
+import static objects.steps.edu_jira_api.GoToProjectCountIssueApi.getProjectKey;
 import static objects.steps.edu_jira_gui.CreateIssue.createIssue;
+import static objects.steps.edu_jira_gui.GoToProjectAntCountIssues.*;
 import static objects.steps.edu_jira_gui.Login.authorization;
 import static objects.steps.edu_jira_gui.Login.invalidAuthorization;
 import static objects.steps.edu_jira_gui.OpenUrl.checkUrlAndTitlePage;
@@ -20,7 +20,6 @@ import static objects.steps.edu_jira_gui.ProfileIn.checkProfileIn;
 import static objects.steps.edu_jira_gui.ProfileIn.profileIn;
 import static objects.steps.edu_jira_gui.SearchIssue.*;
 import static objects.steps.edu_jira_gui.TaskTransitionByStatuses.taskTransitionByStatuses;
-import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static util.Config.getConfigValue;
 
 
@@ -100,7 +99,19 @@ public class GuiEduJiraTest extends WebHooks {
         authorization(login, password);
         goToProjectAntCountIssues(nameCoToProject);
         countIssues(nameCoToProject);
-        getCountIssuesInProjectApi(nameCoToProject);
+
+        String endpoint = "/rest/api/2/project/";
+        String method = "GET";
+        String statusCode = "200";
+        String pathSchema = "ifellow_edu_jira/schemaGetProjectKey.json";
+        getProjectKey(nameCoToProject, endpoint, method, statusCode, pathSchema);
+
+        endpoint = "/rest/api/2/search";
+        method = "GET";
+        statusCode = "200";
+        pathSchema = "ifellow_edu_jira/schemaSearch.json";
+        getCountIssuesInProjectApi(endpoint, method, statusCode, pathSchema);
+
         comparingCountIssues(nameCoToProject);
     }
 

@@ -1,11 +1,34 @@
 package objects.steps.rick_and_morty_api;
 
 import io.qameta.allure.Step;
+import io.restassured.specification.RequestSpecification;
+
+import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
+import static objects.steps.rick_and_morty_api.GetCharacter.getCharacter;
+import static objects.steps.rick_and_morty_api.GetEpisode.getEpisode;
+import static util.Config.getConfigValue;
 
 public class ComparingCharacters {
 
+    static GetCharacter getCharacter1;
+    static GetCharacter getCharacter2;
+    public static void getDataCharacter(String keyUrl, String characterId){
+
+       RequestSpecification request = requestSpecificationAllTests(getConfigValue(keyUrl));
+
+        getCharacter1 = getCharacter(characterId, request);
+
+        String lastEpisodeNumber = getCharacter1.getLastEpisodeNumber();
+
+        characterId = getEpisode(lastEpisodeNumber, request);
+
+        getCharacter2 = getCharacter(characterId, request);
+
+
+    }
+
     @Step("Сравнение данных персонажей")
-    public static void comparingCharacters(GetCharacter getCharacter1, GetCharacter getCharacter2) {
+    public static void comparingCharacters() {
 
         String species = getCharacter1.getSpecies();
 

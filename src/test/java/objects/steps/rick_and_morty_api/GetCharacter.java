@@ -56,4 +56,6 @@ public class GetCharacter extends ResponseAllTests {
 
         return new GetCharacter(species, location, lastEpisodeNumber);
     }
+
+
 }

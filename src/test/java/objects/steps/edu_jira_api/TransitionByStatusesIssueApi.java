@@ -12,12 +12,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static objects.steps.edu_jira_api.BaseAuthorizationRequest.baseAuthorizationRequest;
+
 public class TransitionByStatusesIssueApi {
 
-    @Step("Перевод задачи Id: \"{1}\" по статусам")
-    public static void transitionByStatuses(RequestSpecification request, String issueId) {
+    @Step("Перевод задачи по статусам")
+    public static void transitionByStatuses() {
 
         try {
+            RequestSpecification request =  baseAuthorizationRequest();
+
             String jsonString = new String(Files.readAllBytes(Paths.get("src/test/resources/ifellow_edu_jira/statuses.json")));
 
             JSONArray statusesArray = new JSONArray(jsonString);
@@ -30,9 +34,9 @@ public class TransitionByStatusesIssueApi {
 
                 String transitionStatusName = statusObject.getString("transitionStatusName");
 
-                transitionByStatusesIssueApi(request, issueId, transitionStatusId, transitionStatusName);
+                transitionByStatusesIssueApi(request, CreateIssueApi.issueIdApi, transitionStatusId, transitionStatusName);
 
-                getStatusTransitionIssueApi(request, issueId, transitionStatusName);
+                getStatusTransitionIssueApi(request, CreateIssueApi.issueIdApi, transitionStatusName);
             }
         } catch (IOException e) {
 
@@ -41,7 +45,7 @@ public class TransitionByStatusesIssueApi {
     }
 
 
-    @Step("Перевод задачи Id: \"{1}\" в статус \"{3}\"")
+    @Step("Перевод задачи Id: \"{issueId}\" в статус \"{transitionStatusName}\"")
     public static void transitionByStatusesIssueApi(RequestSpecification request, String issueId, String transitionStatusId, String transitionStatusName) throws IOException {
 
             String endpoint = "/rest/api/2/issue/" + issueId + "/transitions";

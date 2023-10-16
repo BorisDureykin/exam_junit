@@ -8,52 +8,41 @@ import org.json.JSONObject;
 
 import static java.lang.Integer.valueOf;
 import static objects.steps.edu_jira_api.BaseAuthorizationRequest.baseAuthorizationRequest;
-import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static util.Config.getConfigValue;
 
 public class GoToProjectCountIssueApi extends ResponseAllTests {
 
-    private static RequestSpecification request = requestSpecificationAllTests(getConfigValue("UrlIfellowJira"));
-
     public static String countIssueApi;
 
-    @Step("Переходим в проект: \"{0}\" и получаем ключ продукта")
-    public static void getProjectKey(String projectName) {
+    public static String projectKey;
 
-        request = baseAuthorizationRequest(request);
+    @Step("Переходим в проект: \"{projectName}\" и получаем ключ продукта")
+    public static void getProjectKey(String projectName,  String endpoint,  String method, String statusCode, String pathSchema) {
+         RequestSpecification request =  baseAuthorizationRequest();
+         endpoint = endpoint + projectName;
 
-        String endpoint = "/rest/api/2/project/" + projectName;
-
-        String pathSchema = "ifellow_edu_jira/schemaGetProjectKey.json";
-
-        Response response = responseGet(request, null, endpoint, "GET", "200", pathSchema);
+        Response response = responseGet(request, null, endpoint, method, statusCode, pathSchema);
 
         String responseBody = response.getBody().asString();
 
-        String projectKey = new JSONObject(responseBody).optString("key", null);
+        projectKey = new JSONObject(responseBody).optString("key", null);
 
         assertNotNull(projectKey, "Не удалось получить ключ проекта.");
-
     }
 
-    @Step("Переходим в проект: \"{0}\" и получаем количество задач в проекте")
-    public static void getCountIssuesInProjectApi(String projectKey) {
-
-        request = baseAuthorizationRequest(request);
-
-        String endpoint = "/rest/api/2/search";
+    @Step("Переходим в проект: \"{projectKey}\" и получаем количество задач в проекте")
+    public static void getCountIssuesInProjectApi( String endpoint,  String method, String statusCode, String pathSchema) {
 
         String jqlQuery = "project=" + projectKey + " AND resolution = Unresolved";
+
+        RequestSpecification request =  baseAuthorizationRequest();
 
         request
                 .queryParam("fields", "id")
                 .queryParam("maxResults", "0")
                 .queryParam("jql", jqlQuery);
 
-        String pathSchema = "ifellow_edu_jira/schemaSearch.json";
-
-        Response response = responseGet(request, null, endpoint, "GET", "200", pathSchema);
+        Response response = responseGet(request, null, endpoint, method, statusCode, pathSchema);
 
         String responseBody = response.getBody().asString();
 
