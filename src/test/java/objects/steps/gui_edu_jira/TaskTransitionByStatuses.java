@@ -1,12 +1,12 @@
-package objects.steps.edu_jira_gui;
+package objects.steps.gui_edu_jira;
 
 import io.qameta.allure.Step;
 import objects.elements.EdujiraIfellowRuSecureDashboard;
 
 import static com.codeborne.selenide.Selenide.open;
-import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertEqualUtil;
-import static objects.steps.edu_jira_gui.collective.ButtonCheckVisibilityClick.buttonCheckVisibilityClick;
-import static objects.steps.edu_jira_gui.collective.InputIframe.inputIframe;
+import static objects.steps.gui_edu_jira.for_all.AssertionUtils.assertEqualUtil;
+import static objects.steps.gui_edu_jira.for_all.ButtonCheckVisibilityClick.buttonCheckVisibilityClick;
+import static objects.steps.gui_edu_jira.for_all.InputIframe.inputIframe;
 import static util.Config.getConfigValue;
 
 public class TaskTransitionByStatuses extends EdujiraIfellowRuSecureDashboard {

@@ -1,11 +1,11 @@
-package objects.steps.edu_jira_api;
+package objects.steps.api_edu_jira;
 
 import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
 
 import java.util.Base64;
 
-import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
+import static objects.steps.api_all_request_respone.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static util.Config.getConfigValue;
 
 public class BaseAuthorizationRequest {

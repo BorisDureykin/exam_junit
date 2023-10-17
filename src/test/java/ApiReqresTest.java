@@ -1,14 +1,14 @@
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import objects.steps.request_respone_api.RequestSpecificationAllTests;
+import objects.steps.api_all_request_respone.RequestSpecificationAllTests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static objects.steps.reqres_api.CreateUser.createUser;
-import static objects.steps.reqres_api.UpdateJsonObject.updateJsonObject;
-import static objects.steps.request_respone_api.OpenUrlApi.openUrlApi;
+import static objects.steps.api_reqres.CreateUser.createUser;
+import static objects.steps.api_reqres.UpdateJsonObject.updateJsonObject;
+import static objects.steps.api_all_request_respone.OpenUrlApi.openUrlApi;
 
 @Epic(value = "Api Test")
 @Feature(value = "Reqres.in Tests")

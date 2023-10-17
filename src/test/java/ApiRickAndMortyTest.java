@@ -1,14 +1,14 @@
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import objects.steps.request_respone_api.RequestSpecificationAllTests;
+import objects.steps.api_all_request_respone.RequestSpecificationAllTests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static objects.steps.request_respone_api.OpenUrlApi.openUrlApi;
-import static objects.steps.rick_and_morty_api.ComparingCharacters.comparingCharacters;
-import static objects.steps.rick_and_morty_api.ComparingCharacters.getDataCharacter;
+import static objects.steps.api_all_request_respone.OpenUrlApi.openUrlApi;
+import static objects.steps.api_rick_and_morty.ComparingCharacters.comparingCharacters;
+import static objects.steps.api_rick_and_morty.ComparingCharacters.getDataCharacter;
 
 
 @Epic(value = "Api Test")

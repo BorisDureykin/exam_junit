@@ -1,7 +1,7 @@
-package objects.steps.request_respone_api;
+package objects.steps.api_all_request_respone;
 
 import static io.qameta.allure.Allure.step;
-import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
+import static objects.steps.api_all_request_respone.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static util.Config.getConfigValue;
 
 public class OpenUrlApi {

@@ -1,12 +1,12 @@
-package objects.steps.edu_jira_gui.collective;
+package objects.steps.gui_edu_jira.for_all;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.jetbrains.annotations.NotNull;
 
 import static hooks.WebHooks.saveScreenshot;
-import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertEqualUtil;
-import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertTrueVisible;
+import static objects.steps.gui_edu_jira.for_all.AssertionUtils.assertEqualUtil;
+import static objects.steps.gui_edu_jira.for_all.AssertionUtils.assertTrueVisible;
 
 
 public class InputFieldEnterAndVerifyingData {

@@ -1,12 +1,12 @@
-package objects.steps.reqres_api;
+package objects.steps.api_reqres;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import objects.steps.request_respone_api.ResponseAllTests;
+import objects.steps.api_all_request_respone.ResponseAllTests;
 
-import static objects.steps.reqres_api.UpdateJsonObject.getJsonObjectToString;
-import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
+import static objects.steps.api_reqres.UpdateJsonObject.getJsonObjectToString;
+import static objects.steps.api_all_request_respone.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static org.hamcrest.Matchers.equalTo;
 import static util.Config.getConfigValue;
 

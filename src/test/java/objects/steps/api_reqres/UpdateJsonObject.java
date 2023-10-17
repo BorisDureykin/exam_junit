@@ -1,4 +1,4 @@
-package objects.steps.reqres_api;
+package objects.steps.api_reqres;
 
 import io.qameta.allure.Step;
 import org.json.JSONObject;

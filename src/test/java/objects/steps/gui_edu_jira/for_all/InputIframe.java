@@ -1,4 +1,4 @@
-package objects.steps.edu_jira_gui.collective;
+package objects.steps.gui_edu_jira.for_all;
 
 
 import com.codeborne.selenide.Condition;
@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.switchTo;
 import static hooks.WebHooks.saveScreenshot;
 import static objects.elements.CreateIssueForm.iframeInput;
 import static objects.elements.CreateIssueForm.iframeInputField;
-import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertEqualUtil;
+import static objects.steps.gui_edu_jira.for_all.AssertionUtils.assertEqualUtil;
 
 public class InputIframe {
 

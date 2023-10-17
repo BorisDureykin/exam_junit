@@ -1,4 +1,4 @@
-package objects.steps.edu_jira_gui.collective;
+package objects.steps.gui_edu_jira.for_all;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;

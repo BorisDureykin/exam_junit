@@ -1,12 +1,12 @@
-package objects.steps.rick_and_morty_api;
+package objects.steps.api_rick_and_morty;
 
 import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
 
 import static hooks.WebHooks.saveMessage;
-import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
-import static objects.steps.rick_and_morty_api.GetCharacter.getCharacter;
-import static objects.steps.rick_and_morty_api.GetEpisode.getEpisode;
+import static objects.steps.api_all_request_respone.RequestSpecificationAllTests.requestSpecificationAllTests;
+import static objects.steps.api_rick_and_morty.GetCharacter.getCharacter;
+import static objects.steps.api_rick_and_morty.GetEpisode.getEpisode;
 import static util.Config.getConfigValue;
 
 public class ComparingCharacters {

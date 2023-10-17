@@ -1,4 +1,4 @@
-package objects.steps.request_respone_api;
+package objects.steps.api_all_request_respone;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.specification.RequestSpecification;

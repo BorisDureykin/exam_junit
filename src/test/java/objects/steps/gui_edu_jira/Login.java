@@ -1,13 +1,13 @@
-package objects.steps.edu_jira_gui;
+package objects.steps.gui_edu_jira;
 
 import io.qameta.allure.Step;
 import objects.elements.EdujiraIfellowRuLogin;
 
 import static hooks.WebHooks.saveScreenshot;
-import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertTrueContains;
-import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertTrueVisible;
-import static objects.steps.edu_jira_gui.collective.ButtonCheckVisibilityClick.buttonCheckVisibilityClick;
-import static objects.steps.edu_jira_gui.collective.InputFieldEnterAndVerifyingData.inputFieldEnterAndVerifyingData;
+import static objects.steps.gui_edu_jira.for_all.AssertionUtils.assertTrueContains;
+import static objects.steps.gui_edu_jira.for_all.AssertionUtils.assertTrueVisible;
+import static objects.steps.gui_edu_jira.for_all.ButtonCheckVisibilityClick.buttonCheckVisibilityClick;
+import static objects.steps.gui_edu_jira.for_all.InputFieldEnterAndVerifyingData.inputFieldEnterAndVerifyingData;
 
 public class Login extends EdujiraIfellowRuLogin {
 

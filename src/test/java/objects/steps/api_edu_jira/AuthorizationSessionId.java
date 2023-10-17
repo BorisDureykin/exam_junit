@@ -1,14 +1,14 @@
-package objects.steps.edu_jira_api;
+package objects.steps.api_edu_jira;
 
 import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
-import objects.steps.request_respone_api.ResponseAllTests;
+import objects.steps.api_all_request_respone.ResponseAllTests;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
+import static objects.steps.api_all_request_respone.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static util.Config.getConfigValue;
 
 public class AuthorizationSessionId extends ResponseAllTests {

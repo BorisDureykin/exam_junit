@@ -1,4 +1,4 @@
-package objects.steps.edu_jira_gui;
+package objects.steps.gui_edu_jira;
 
 import com.codeborne.selenide.Condition;
 import objects.elements.EdujiraIfellowRuSecureDashboard;
@@ -6,10 +6,10 @@ import objects.elements.EdujiraIfellowRuSecureDashboard;
 import static hooks.WebHooks.saveScreenshot;
 import static io.qameta.allure.Allure.step;
 import static objects.elements.CreateIssueForm.*;
-import static objects.steps.edu_jira_gui.collective.AssertionUtils.*;
-import static objects.steps.edu_jira_gui.collective.ButtonCheckVisibilityClick.buttonCheckVisibilityClick;
-import static objects.steps.edu_jira_gui.collective.InputFieldEnterAndVerifyingData.inputFieldEnterAndVerifyingData;
-import static objects.steps.edu_jira_gui.collective.InputIframe.inputIframe;
+import static objects.steps.gui_edu_jira.for_all.AssertionUtils.*;
+import static objects.steps.gui_edu_jira.for_all.ButtonCheckVisibilityClick.buttonCheckVisibilityClick;
+import static objects.steps.gui_edu_jira.for_all.InputFieldEnterAndVerifyingData.inputFieldEnterAndVerifyingData;
+import static objects.steps.gui_edu_jira.for_all.InputIframe.inputIframe;
 
 public class CreateIssue extends EdujiraIfellowRuSecureDashboard {
 

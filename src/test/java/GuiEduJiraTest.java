@@ -1,4 +1,3 @@
-import com.codeborne.selenide.junit5.ScreenShooterExtension;
 import hooks.WebHooks;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -6,26 +5,24 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
-import static objects.steps.edu_jira_api.GoToProjectCountIssueApi.getCountIssuesInProjectApi;
-import static objects.steps.edu_jira_api.GoToProjectCountIssueApi.getProjectKey;
-import static objects.steps.edu_jira_gui.CreateIssue.createIssue;
-import static objects.steps.edu_jira_gui.GoToProjectAntCountIssues.*;
-import static objects.steps.edu_jira_gui.Login.authorization;
-import static objects.steps.edu_jira_gui.Login.invalidAuthorization;
-import static objects.steps.edu_jira_gui.OpenUrl.checkUrlAndTitlePage;
-import static objects.steps.edu_jira_gui.OpenUrl.openUrl;
-import static objects.steps.edu_jira_gui.ProfileIn.checkProfileIn;
-import static objects.steps.edu_jira_gui.ProfileIn.profileIn;
-import static objects.steps.edu_jira_gui.SearchIssue.*;
-import static objects.steps.edu_jira_gui.TaskTransitionByStatuses.taskTransitionByStatuses;
+import static objects.steps.api_edu_jira.GoToProjectCountIssueApi.getCountIssuesInProjectApi;
+import static objects.steps.api_edu_jira.GoToProjectCountIssueApi.getProjectKey;
+import static objects.steps.gui_edu_jira.CreateIssue.createIssue;
+import static objects.steps.gui_edu_jira.GoToProjectAntCountIssues.*;
+import static objects.steps.gui_edu_jira.Login.authorization;
+import static objects.steps.gui_edu_jira.Login.invalidAuthorization;
+import static objects.steps.gui_edu_jira.OpenUrl.checkUrlAndTitlePage;
+import static objects.steps.gui_edu_jira.OpenUrl.openUrl;
+import static objects.steps.gui_edu_jira.ProfileIn.checkProfileIn;
+import static objects.steps.gui_edu_jira.ProfileIn.profileIn;
+import static objects.steps.gui_edu_jira.SearchIssue.*;
+import static objects.steps.gui_edu_jira.TaskTransitionByStatuses.taskTransitionByStatuses;
 import static util.Config.getConfigValue;
 
 
 @Epic("GUI Test")
 @Feature("ifellowEduJira.ru Tests")
-@ExtendWith({ScreenShooterExtension.class})
 
 public class GuiEduJiraTest extends WebHooks {
 

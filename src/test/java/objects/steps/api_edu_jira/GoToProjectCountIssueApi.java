@@ -1,13 +1,14 @@
-package objects.steps.edu_jira_api;
+package objects.steps.api_edu_jira;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import objects.steps.request_respone_api.ResponseAllTests;
+import objects.steps.api_all_request_respone.ResponseAllTests;
 import org.json.JSONObject;
 
+import static io.qameta.allure.Allure.step;
 import static java.lang.Integer.valueOf;
-import static objects.steps.edu_jira_api.BaseAuthorizationRequest.baseAuthorizationRequest;
+import static objects.steps.api_edu_jira.BaseAuthorizationRequest.baseAuthorizationRequest;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class GoToProjectCountIssueApi extends ResponseAllTests {
@@ -30,26 +31,24 @@ public class GoToProjectCountIssueApi extends ResponseAllTests {
         assertNotNull(projectKey, "Не удалось получить ключ проекта.");
     }
 
-    @Step("Переходим в проект: \"{projectKey}\" и получаем количество задач в проекте")
     public static void getCountIssuesInProjectApi( String endpoint,  String method, String statusCode, String pathSchema) {
+        step("Переходим в проект: \"" + projectKey + "\" и получаем количество задач в проекте", () -> {
+            String jqlQuery = "project=" + projectKey + " AND resolution = Unresolved";
 
-        String jqlQuery = "project=" + projectKey + " AND resolution = Unresolved";
+            RequestSpecification request = baseAuthorizationRequest();
 
-        RequestSpecification request =  baseAuthorizationRequest();
+            request
+                    .queryParam("fields", "id")
+                    .queryParam("maxResults", "0")
+                    .queryParam("jql", jqlQuery);
 
-        request
-                .queryParam("fields", "id")
-                .queryParam("maxResults", "0")
-                .queryParam("jql", jqlQuery);
+            Response response = responseGet(request, null, endpoint, method, statusCode, pathSchema);
 
-        Response response = responseGet(request, null, endpoint, method, statusCode, pathSchema);
+            String responseBody = response.getBody().asString();
 
-        String responseBody = response.getBody().asString();
+            countIssueApi = String.valueOf(valueOf(new JSONObject(responseBody).getInt("total")));
 
-        countIssueApi = String.valueOf(valueOf(new JSONObject(responseBody).getInt("total")));
-
-        assertNotNull(countIssueApi,  "Нет значения в количестве задач.");
-
+            assertNotNull(countIssueApi, "Нет значения в количестве задач.");
+        });
     }
-
 }
