@@ -26,6 +26,12 @@ public class WebHooks {
         return Selenide.screenshot(OutputType.BYTES);
     }
 
+    @Attachment(value = "{nameMessage}", type = "text/plain")
+    public static String saveMessage(String nameMessage ,String message) {
+        return message;
+    }
+
+
     @AfterEach
     public void afterClass() {
 

@@ -3,6 +3,7 @@ package objects.steps.rick_and_morty_api;
 import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
 
+import static hooks.WebHooks.saveMessage;
 import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static objects.steps.rick_and_morty_api.GetCharacter.getCharacter;
 import static objects.steps.rick_and_morty_api.GetEpisode.getEpisode;
@@ -38,15 +39,10 @@ public class ComparingCharacters {
 
         String location2 = getCharacter2.getLocation();
 
-//        assertAll();
-
-        String message = species.equals(species2) ? "Принадлежат к одной рассе: " + species : "Рассы разные: " + species + " и " + species2;
-
-        System.out.println(message);
-
-        message = location.equals(location2) ? "Находятся в одной локации: " + location : "Локации разные: " + location + " и " + location2;
-
-        System.out.println(message);
+        String messageSpecies = species.equals(species2) ? "Принадлежат к одной расе: " + species : "Расы разные: " + species + " и " + species2;
+        saveMessage("Принадлежность к расам" ,messageSpecies);
+        String messageLocation = location.equals(location2) ? "Находятся в одной локации: " + location : "Локации разные: " + location + " и " + location2;
+        saveMessage("Локации персонажей" ,messageLocation);
 
     }
 

@@ -2,11 +2,11 @@ package objects.steps.edu_jira_gui;
 
 import io.qameta.allure.Step;
 import objects.elements.EdujiraIfellowRuSecureDashboard;
-import objects.steps.edu_jira_gui.collective.ButtonCheckVisibilityClick;
-import objects.steps.edu_jira_gui.collective.InputIframe;
 
-import static objects.steps.edu_jira_gui.OpenUrl.openUrl;
+import static com.codeborne.selenide.Selenide.open;
 import static objects.steps.edu_jira_gui.collective.AssertionUtils.assertEqualUtil;
+import static objects.steps.edu_jira_gui.collective.ButtonCheckVisibilityClick.buttonCheckVisibilityClick;
+import static objects.steps.edu_jira_gui.collective.InputIframe.inputIframe;
 import static util.Config.getConfigValue;
 
 public class TaskTransitionByStatuses extends EdujiraIfellowRuSecureDashboard {
@@ -14,22 +14,22 @@ public class TaskTransitionByStatuses extends EdujiraIfellowRuSecureDashboard {
     @Step("Переводим созданную задачу по статусам")
     public static void taskTransitionByStatuses() {
         String  url = getConfigValue("issueUrl") + CreateIssue.issueKey;
-        openUrl(url);
+        open(url);
 
-        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(inWorkButton, "В работе");
-        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(closeButton, "closeButton");
+        buttonCheckVisibilityClick(inWorkButton, "В работе");
+        buttonCheckVisibilityClick(closeButton, "closeButton");
 
-        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(businessProcessButton, "Бизнес процесс");
-        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(executedButton, "Исполнено");
-        InputIframe.inputIframe("Комментарий", "Комментарий Задачи 'Исполнено'");
-        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(executedButtonForm, "Исполнено На форме Исполнено");
-        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(closeButton, "closeButton");
+        buttonCheckVisibilityClick(businessProcessButton, "Бизнес процесс");
+        buttonCheckVisibilityClick(executedButton, "Исполнено");
+        inputIframe("Комментарий", "Комментарий Задачи 'Исполнено'");
+        buttonCheckVisibilityClick(executedButtonForm, "Исполнено На форме Исполнено");
+        buttonCheckVisibilityClick(closeButton, "closeButton");
 
-        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(businessProcessButton, "Бизнес процесс");
-        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(confirmedButton, "Подтверждено");
-        InputIframe.inputIframe("Комментарий", "Комментарий Задачи 'Подтверждено'");
-        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(confirmedButtonForm, "Подтверждено На форме Подтверждено");
-        ButtonCheckVisibilityClick.buttonCheckVisibilityClick(closeButton, "closeButton");
+        buttonCheckVisibilityClick(businessProcessButton, "Бизнес процесс");
+        buttonCheckVisibilityClick(confirmedButton, "Подтверждено");
+        inputIframe("Комментарий", "Комментарий Задачи 'Подтверждено'");
+        buttonCheckVisibilityClick(confirmedButtonForm, "Подтверждено На форме Подтверждено");
+        buttonCheckVisibilityClick(closeButton, "closeButton");
         assertEqualUtil("Готово", issueStatus.getOwnText(), "Не верный статус задачи");
     }
 }

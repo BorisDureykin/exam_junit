@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static objects.steps.reqres_api.CreateUser.createUser;
-import static objects.steps.reqres_api.UpdateJsonObject.createAndUpdate;
+import static objects.steps.reqres_api.UpdateJsonObject.updateJsonObject;
 import static objects.steps.request_respone_api.OpenUrlApi.openUrlApi;
 
 @Epic(value = "Api Test")
@@ -46,7 +46,7 @@ public class ApiReqresTest extends RequestSpecificationAllTests {
     @Tag("Reqres")
     public void testCreate() {
 
-        createAndUpdate(filePath, nameValue, jobValue);
+        updateJsonObject(filePath, nameValue, jobValue);
 
         endpoint = "/api/users";
 

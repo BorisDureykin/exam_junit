@@ -13,7 +13,7 @@ public class UpdateJsonObject {
     private JSONObject newUserJson;
 
     @Step("Создание body с новыми значениями name: \"{nameValue}\", job: \"{jobValue}\"")
-    public static void createAndUpdate(String filePath, String nameValue, String jobValue) {
+    public static void updateJsonObject(String filePath, String nameValue, String jobValue) {
         instance = new UpdateJsonObject();
         try {
             String initialUserJson = new String(Files.readAllBytes(Paths.get(filePath)));
