@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static objects.steps.reqres_api.CreateUser.createUser;
+import static objects.steps.reqres_api.UpdateJsonObject.createAndUpdate;
 import static objects.steps.request_respone_api.OpenUrlApi.openUrlApi;
 
 @Epic(value = "Api Test")
@@ -14,6 +15,7 @@ import static objects.steps.request_respone_api.OpenUrlApi.openUrlApi;
 @Story(value = "Api Reqres")
 public class ApiReqresTest extends RequestSpecificationAllTests {
     private final String keyUrl = "UrlReqresIn";
+    private final String filePath = "src/test/resources/reqres/user.json";
     private final String nameValue = "Tomato";
     private final String jobValue = "Eat maket";
     private String endpoint;
@@ -43,6 +45,8 @@ public class ApiReqresTest extends RequestSpecificationAllTests {
     @Tag("Api")
     @Tag("Reqres")
     public void testCreate() {
+
+        createAndUpdate(filePath, nameValue, jobValue);
 
         endpoint = "/api/users";
 

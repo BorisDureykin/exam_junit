@@ -5,6 +5,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import objects.steps.request_respone_api.ResponseAllTests;
 
+import static objects.steps.reqres_api.UpdateJsonObject.getJsonObjectToString;
 import static objects.steps.request_respone_api.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static org.hamcrest.Matchers.equalTo;
 import static util.Config.getConfigValue;
@@ -19,11 +20,7 @@ public class CreateUser extends ResponseAllTests {
 
         RequestSpecification request = requestSpecificationAllTests(url);
 
-        String filePath = "src/test/resources/reqres/user.json";
-
-        String body = UpdateJsonObject.updateJsonObject(filePath, nameValue, jobValue);
-
-
+        String body = getJsonObjectToString();
 
         Response response = responseGet(request, body, endpoint, method, statusCode, pathSchema);
 

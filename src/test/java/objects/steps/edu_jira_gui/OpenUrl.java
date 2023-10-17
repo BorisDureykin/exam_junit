@@ -2,7 +2,6 @@ package objects.steps.edu_jira_gui;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
-import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
