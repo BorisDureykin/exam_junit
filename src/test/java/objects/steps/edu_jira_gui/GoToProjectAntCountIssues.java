@@ -17,7 +17,6 @@ public class GoToProjectAntCountIssues extends EdujiraIfellowRuSecureDashboard {
     private static String newCountIssuesGui;
 
 
-    @Step("Заходим в проект: {nameCoToProject}")
     public static void goToProjectAntCountIssues(String nameCoToProject) {
 
         step("Заходим в проект: " + nameCoToProject, () -> {

@@ -29,7 +29,7 @@ import static util.Config.getConfigValue;
 
 public class GuiEduJiraTest extends WebHooks {
 
-    private final String url = getConfigValue("UrlIfellowJira");
+    private final String keyUrl = "UrlIfellowJira";
     private String login = getConfigValue("login");
     private String password = getConfigValue("password");
     private final String pageTitle = "System Dashboard - Jira";
@@ -45,8 +45,8 @@ public class GuiEduJiraTest extends WebHooks {
     @Tag("GUI")
     @Tag("EduJira")
     public void testOpenUrl() {
-        openUrl(url);
-        checkUrlAndTitlePage(url, pageTitle);
+        openUrl(keyUrl);
+        checkUrlAndTitlePage(keyUrl, pageTitle);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class GuiEduJiraTest extends WebHooks {
     @Tag("GUI")
     @Tag("EduJira")
     public void testAuthorizationPositive() {
-        openUrl(url);
+        openUrl(keyUrl);
         authorization(login, password);
         profileIn();
         checkProfileIn(login);
@@ -70,7 +70,7 @@ public class GuiEduJiraTest extends WebHooks {
     public void testAuthorizationInvalidLogin() {
 
         login = "AAAA";
-        openUrl(url);
+        openUrl(keyUrl);
         authorization(login, password);
         invalidAuthorization();
 
@@ -83,7 +83,7 @@ public class GuiEduJiraTest extends WebHooks {
     public void testAuthorizationInvalidPassword() {
 
         password = "qwerty";
-        openUrl(url);
+        openUrl(keyUrl);
         authorization(login, password);
         invalidAuthorization();
     }
@@ -95,7 +95,7 @@ public class GuiEduJiraTest extends WebHooks {
     @Tag("GUI")
     @Tag("EduJira")
     public void testGoToProject() {
-        openUrl(url);
+        openUrl(keyUrl);
         authorization(login, password);
         goToProjectAntCountIssues(nameCoToProject);
         countIssues(nameCoToProject);
@@ -121,7 +121,7 @@ public class GuiEduJiraTest extends WebHooks {
     @Tag("GUI")
     @Tag("EduJira")
     public void testTaskSearch() {
-        openUrl(url);
+        openUrl(keyUrl);
         authorization(login, password);
         profileIn();
         searchIssue(taskName);
@@ -135,7 +135,7 @@ public class GuiEduJiraTest extends WebHooks {
     @Tag("GUI")
     @Tag("EduJira")
     public void testCreateIssueAndTransitionByStatuses() {
-        openUrl(url);
+        openUrl(keyUrl);
         authorization(login, password);
         createIssue(inputTopic);
         taskTransitionByStatuses();
@@ -147,7 +147,7 @@ public class GuiEduJiraTest extends WebHooks {
     @Tag("GUI")
     @Tag("EduJira")
     public void testCreateIssueInvalidTopic() {
-        openUrl(url);
+        openUrl(keyUrl);
         authorization(login, password);
         inputTopic="";
         createIssue(inputTopic);
