@@ -6,6 +6,8 @@ import io.restassured.specification.RequestSpecification;
 import objects.steps.api_all_request_respone.ResponseAllTests;
 import org.json.JSONObject;
 
+import static hooks.WebHooks.saveMessage;
+
 public class GetEpisode extends ResponseAllTests {
 
     @Step("Получение данных эпизода с id : \"{id}\"")
@@ -23,6 +25,12 @@ public class GetEpisode extends ResponseAllTests {
 
         String lastEpisodeUrl = jsonObject.getJSONArray("characters").getString(jsonObject.getJSONArray("characters").length() - 1);
 
-        return lastEpisodeUrl.substring(lastEpisodeUrl.lastIndexOf("/") + 1);
+        String lastCharacterId = lastEpisodeUrl.substring(lastEpisodeUrl.lastIndexOf("/") + 1);
+
+        String message = "В эпизоде ID: "+ id + " последний персонаж c ID: "+ lastCharacterId;
+
+        saveMessage("Данные эпизода" ,message);
+
+        return lastCharacterId;
     }
 }

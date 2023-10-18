@@ -7,15 +7,13 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static objects.steps.api_all_request_respone.OpenUrlApi.openUrlApi;
-import static objects.steps.api_rick_and_morty.ComparingCharacters.comparingCharacters;
-import static objects.steps.api_rick_and_morty.ComparingCharacters.getDataCharacter;
+import static objects.steps.api_rick_and_morty.ComparingCharacters.*;
 
 
 @Epic(value = "Api Test")
 @Feature(value="RickAndMortyApi.com Tests")
 public class ApiRickAndMortyTest extends RequestSpecificationAllTests {
     private final String keyUrl = "UrlRickAndMortyApi";
-    private String endpoint;
     private String method;
     private String statusCode;
     private String pathSchema;
@@ -45,7 +43,10 @@ public class ApiRickAndMortyTest extends RequestSpecificationAllTests {
     @Tag("RickAndMorty")
     public void testComparingCharacters() {
 
-        getDataCharacter(keyUrl, characterId);
+        getDataCharacter1(keyUrl, characterId);//данные 1 персонажа
+        getLastEpisodeNumber(); //получили номер последнего эпизода
+        getLastCharacterId();//получили номер последнего персонажа в эпизоде
+        getDataCharacter2();//данные 2 персонажа
         comparingCharacters();
 
     }

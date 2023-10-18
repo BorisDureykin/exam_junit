@@ -149,6 +149,4 @@ public class GuiEduJiraTest extends WebHooks {
         inputTopic="";
         createIssue(inputTopic);
     }
-
-
 }

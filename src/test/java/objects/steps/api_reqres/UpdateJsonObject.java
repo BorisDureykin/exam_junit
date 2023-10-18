@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static hooks.WebHooks.saveMessage;
+
 public class UpdateJsonObject {
 
     private static UpdateJsonObject instance;
@@ -22,6 +24,8 @@ public class UpdateJsonObject {
 
             instance.newUserJson.put("name", nameValue);
             instance.newUserJson.put("job", jobValue);
+            String message = "Изменен Json новое body: " + instance.newUserJson.toString();
+            saveMessage("Изменение Json" ,message);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,6 +33,7 @@ public class UpdateJsonObject {
         }
     }
     public static String getJsonObjectToString() {
+
         return instance.newUserJson.toString();
     }
 }

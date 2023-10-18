@@ -5,9 +5,11 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import objects.steps.api_all_request_respone.ResponseAllTests;
 
+import static hooks.WebHooks.saveMessage;
 import static objects.steps.api_reqres.UpdateJsonObject.getJsonObjectToString;
 import static objects.steps.api_all_request_respone.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static util.Config.getConfigValue;
 
 
@@ -24,11 +26,10 @@ public class CreateUser extends ResponseAllTests {
 
         Response response = responseGet(request, body, endpoint, method, statusCode, pathSchema);
 
-        response
-                .then()
-                .assertThat()
-                .body("name", equalTo(nameValue))
-                .body("job", equalTo(jobValue));
+        String message = "Проверяем Поле 'name' и Поле 'job' на соответствие ожидаемым значениям- 'name': " + nameValue + " 'job': " + jobValue;
+        saveMessage("Проверяем поля ответа ", message);
 
+        assertEquals(nameValue, response.path("name"), "Поле 'name' не соответствует ожидаемому значению");
+        assertEquals(jobValue, response.path("job"), "Поле 'job' не соответствует ожидаемому значению");
     }
 }

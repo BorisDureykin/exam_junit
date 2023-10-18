@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static hooks.WebHooks.saveMessage;
 import static objects.steps.api_edu_jira.BaseAuthorizationRequest.baseAuthorizationRequest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TransitionByStatusesIssueApi {
 
@@ -58,7 +60,7 @@ public class TransitionByStatusesIssueApi {
 
     }
 
-    @Step("Проверка перевода задачи Id: \"{1}\" в статус \"{2}\"")
+    @Step("Проверка перевода задачи Id: \"{issueId}\" в статус \"{transitionStatusName}\"")
     public static void getStatusTransitionIssueApi(RequestSpecification request, String issueId, String transitionStatusName) {
 
         String endpoint = "/rest/api/2/issue/" + issueId;
@@ -69,7 +71,9 @@ public class TransitionByStatusesIssueApi {
 
         String gettingStatusName = new JSONObject(response.getBody().asString()).optJSONObject("fields").optJSONObject("status").optString("name");
 
-        Assertions.assertEquals(transitionStatusName, gettingStatusName);
+        String message = "Ожидаемый статус: " + transitionStatusName + " Фактический статус: " + gettingStatusName;
+        saveMessage("Сверяем статус задачи с ожидаемым" ,message);
+        assertEquals(transitionStatusName, gettingStatusName);
 
     }
 }

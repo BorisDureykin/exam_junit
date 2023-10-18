@@ -6,6 +6,8 @@ import io.restassured.specification.RequestSpecification;
 import objects.steps.api_all_request_respone.ResponseAllTests;
 import org.json.JSONObject;
 
+import static hooks.WebHooks.saveMessage;
+
 
 public class GetCharacter extends ResponseAllTests {
 
@@ -53,6 +55,9 @@ public class GetCharacter extends ResponseAllTests {
         String lastEpisodeUrl = jsonObject.getJSONArray("episode").getString(jsonObject.getJSONArray("episode").length() - 1);
 
         String lastEpisodeNumber = lastEpisodeUrl.substring(lastEpisodeUrl.lastIndexOf("/") + 1);
+
+        String message = "Персонаж ID: "+id + " раса персонажа: "+ species + ", место нахождения персонажа: "+ location  + ", последний эпизод где появлялся персонаж: "+ lastEpisodeNumber;
+        saveMessage("Характеристики персонажа" ,message);
 
         return new GetCharacter(species, location, lastEpisodeNumber);
     }

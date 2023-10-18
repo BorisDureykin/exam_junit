@@ -1,13 +1,16 @@
 package objects.steps.api_edu_jira;
 
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import objects.steps.api_all_request_respone.ResponseAllTests;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static hooks.WebHooks.saveMessage;
 import static objects.steps.api_all_request_respone.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static util.Config.getConfigValue;
 
@@ -26,8 +29,26 @@ public class AuthorizationSessionId extends ResponseAllTests {
 
             body = body.replace("userPassword", password);
 
-            responseGet(request, body, endpoint, metod, statusCode, pathSchema);
+            Response response = responseGet(request, body, endpoint, metod, statusCode, pathSchema);
 
+            int statusCode1 = response.getStatusCode();
+
+            if(statusCode1 == 200){
+                String responseBody = response.getBody().asString();
+
+                JSONObject jsonObject = new JSONObject(responseBody);
+
+                String sesionId = jsonObject.getJSONObject("session").getString("value");
+
+                String message = "Успешная авторизация sesionId: " + sesionId ;
+
+                saveMessage("Успешная авторизация", message);
+            } else {
+
+                String message = "Авторизация не удалась не верные логин или пароль";
+
+                saveMessage("Не авторизованы", message);
+            }
         } catch (IOException e) {
 
             e.printStackTrace();

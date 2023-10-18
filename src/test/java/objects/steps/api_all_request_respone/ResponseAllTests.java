@@ -5,7 +5,10 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import static hooks.WebHooks.saveMessage;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ResponseAllTests {
 
@@ -38,14 +41,19 @@ public class ResponseAllTests {
             default:
                 throw new IllegalArgumentException("HTTP method задан не верно: " + method);
         }
+        assertNotNull(response, "Ответ (response) равен null");
 
-        assert response != null;
         Allure.addAttachment("API Response", "application/json", response.asString());
 
-        response
-                .then()
-                .assertThat()
-                .statusCode(Integer.parseInt(statusCode));
+        int intStatusCode = Integer.parseInt(statusCode);
+
+        int actualStatusCode = response.getStatusCode();
+
+        String message = "Ожидаемый StatusCode: " + intStatusCode + " Полученный StatusCode: " + actualStatusCode;
+
+        saveMessage("Сверяем полученный статус код с ожидаемым" ,message);
+
+        assertEquals(intStatusCode, actualStatusCode, "StatusCode не соответствует ожидаемому значению");
 
         if (pathSchema != null) {
             response
@@ -53,7 +61,6 @@ public class ResponseAllTests {
                     .assertThat()
                     .body(matchesJsonSchemaInClasspath(pathSchema));
         }
-
         return response;
     }
 }

@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
 
 import static hooks.WebHooks.saveMessage;
+import static io.qameta.allure.Allure.step;
 import static objects.steps.api_all_request_respone.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static objects.steps.api_rick_and_morty.GetCharacter.getCharacter;
 import static objects.steps.api_rick_and_morty.GetEpisode.getEpisode;
@@ -11,19 +12,39 @@ import static util.Config.getConfigValue;
 
 public class ComparingCharacters {
 
-    static GetCharacter getCharacter1;
-    static GetCharacter getCharacter2;
-    public static void getDataCharacter(String keyUrl, String characterId){
+   private static RequestSpecification request;
+    private static GetCharacter getCharacter1;
+    private static GetCharacter getCharacter2;
+    private static String lastEpisodeNumber;
+    private static String characterId2;
 
-       RequestSpecification request = requestSpecificationAllTests(getConfigValue(keyUrl));
 
+    @Step("Получение характеристик персонажа с ID: {characterId}")
+    public static void getDataCharacter1(String keyUrl, String characterId){
+        request = requestSpecificationAllTests(getConfigValue(keyUrl));
         getCharacter1 = getCharacter(characterId, request);
+    }
 
-        String lastEpisodeNumber = getCharacter1.getLastEpisodeNumber();
+    @Step("получили номер последнего эпизода")
+    public static void getLastEpisodeNumber(){
+        lastEpisodeNumber = getCharacter1.getLastEpisodeNumber();
+        String message = "Номер последнего эпизода где появлялся персонаж: "+lastEpisodeNumber;
+        saveMessage("Номер последнего эпизода" ,message);
+    }
 
-        characterId = getEpisode(lastEpisodeNumber, request);
+    public static void getLastCharacterId() {
+        step("Получение номер последнего персонажа в эпизоде: \"" + lastEpisodeNumber, () -> {
+            characterId2 = getEpisode(lastEpisodeNumber, request);
+            String message = "В эпизоде: "+lastEpisodeNumber+ "Номер последнего персонажа: "+characterId2;
+            saveMessage("Номер последнего персонажа" ,message);
+        });
+    }
 
-        getCharacter2 = getCharacter(characterId, request);
+
+    @Step("Получение характеристик персонажа с ID: {characterId2}")
+    public static void getDataCharacter2(){
+
+        getCharacter2 = getCharacter(characterId2, request);
 
 
     }

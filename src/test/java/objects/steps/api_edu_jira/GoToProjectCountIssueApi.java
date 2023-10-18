@@ -6,6 +6,7 @@ import io.restassured.specification.RequestSpecification;
 import objects.steps.api_all_request_respone.ResponseAllTests;
 import org.json.JSONObject;
 
+import static hooks.WebHooks.saveMessage;
 import static io.qameta.allure.Allure.step;
 import static java.lang.Integer.valueOf;
 import static objects.steps.api_edu_jira.BaseAuthorizationRequest.baseAuthorizationRequest;
@@ -47,6 +48,8 @@ public class GoToProjectCountIssueApi extends ResponseAllTests {
             String responseBody = response.getBody().asString();
 
             countIssueApi = String.valueOf(valueOf(new JSONObject(responseBody).getInt("total")));
+            String message = "Количество задач в проекте: " + projectKey + " Составляет: " + countIssueApi;
+            saveMessage("Количество задач в проекте: " + projectKey, message);
 
             assertNotNull(countIssueApi, "Нет значения в количестве задач.");
         });

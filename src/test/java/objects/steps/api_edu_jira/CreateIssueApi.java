@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static hooks.WebHooks.saveMessage;
 import static objects.steps.api_edu_jira.BaseAuthorizationRequest.baseAuthorizationRequest;
 
 public class CreateIssueApi {
@@ -28,6 +29,10 @@ public class CreateIssueApi {
             String responseBody = response.getBody().asString();
 
             issueIdApi = new JSONObject(responseBody).getString("id");
+
+            String message = "Создана задач с ID: " + issueIdApi ;
+
+            saveMessage("ID задачи", message);
 
         } catch (IOException e) {
 
