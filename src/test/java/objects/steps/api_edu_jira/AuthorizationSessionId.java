@@ -19,7 +19,6 @@ public class AuthorizationSessionId extends ResponseAllTests {
     @Step("Авторизация")
     public static void authorizationSessionId(String keyUrl, String login, String password, String endpoint, String metod, String statusCode, String pathSchema) {
 
-
         try {
             RequestSpecification request = requestSpecificationAllTests(getConfigValue(keyUrl));
 

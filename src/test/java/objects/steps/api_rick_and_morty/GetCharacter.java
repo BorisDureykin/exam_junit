@@ -57,6 +57,7 @@ public class GetCharacter extends ResponseAllTests {
         String lastEpisodeNumber = lastEpisodeUrl.substring(lastEpisodeUrl.lastIndexOf("/") + 1);
 
         String message = "Персонаж ID: "+id + " раса персонажа: "+ species + ", место нахождения персонажа: "+ location  + ", последний эпизод где появлялся персонаж: "+ lastEpisodeNumber;
+
         saveMessage("Характеристики персонажа" ,message);
 
         return new GetCharacter(species, location, lastEpisodeNumber);

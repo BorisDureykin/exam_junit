@@ -1,12 +1,10 @@
 package objects.steps.api_edu_jira;
 
 import io.qameta.allure.Step;
-import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.specification.RequestSpecification;
 
 import java.util.Base64;
 
-import static hooks.WebHooks.saveMessage;
 import static objects.steps.api_all_request_respone.RequestSpecificationAllTests.requestSpecificationAllTests;
 import static util.Config.getConfigValue;
 

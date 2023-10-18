@@ -6,9 +6,8 @@ import io.restassured.specification.RequestSpecification;
 import objects.steps.api_all_request_respone.ResponseAllTests;
 
 import static hooks.WebHooks.saveMessage;
-import static objects.steps.api_reqres.UpdateJsonObject.getJsonObjectToString;
 import static objects.steps.api_all_request_respone.RequestSpecificationAllTests.requestSpecificationAllTests;
-import static org.hamcrest.Matchers.equalTo;
+import static objects.steps.api_reqres.UpdateJsonObject.getJsonObjectToString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static util.Config.getConfigValue;
 

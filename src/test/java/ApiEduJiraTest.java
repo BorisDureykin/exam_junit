@@ -6,12 +6,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static objects.steps.api_all_request_respone.OpenUrlApi.openUrlApi;
 import static objects.steps.api_edu_jira.AuthorizationSessionId.authorizationSessionId;
 import static objects.steps.api_edu_jira.CreateIssueApi.createIssueApi;
 import static objects.steps.api_edu_jira.GoToProjectCountIssueApi.getCountIssuesInProjectApi;
 import static objects.steps.api_edu_jira.GoToProjectCountIssueApi.getProjectKey;
 import static objects.steps.api_edu_jira.TransitionByStatusesIssueApi.transitionByStatuses;
-import static objects.steps.api_all_request_respone.OpenUrlApi.openUrlApi;
 import static util.Config.getConfigValue;
 
 @Epic(value = "Api Test")
