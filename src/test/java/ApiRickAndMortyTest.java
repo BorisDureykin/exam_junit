@@ -11,7 +11,7 @@ import static objects.steps.api_rick_and_morty.ComparingCharacters.*;
 
 
 @Epic(value = "Api Test")
-@Feature(value="RickAndMortyApi.com Tests")
+@Feature(value = "RickAndMortyApi.com Tests")
 public class ApiRickAndMortyTest extends RequestSpecificationAllTests {
     private final String keyUrl = "UrlRickAndMortyApi";
     private String method;
@@ -30,7 +30,7 @@ public class ApiRickAndMortyTest extends RequestSpecificationAllTests {
 
         method = "GET";
 
-        statusCode="200";
+        statusCode = "200";
 
         openUrlApi(keyUrl, null, method, statusCode, pathSchema);
 
@@ -43,10 +43,10 @@ public class ApiRickAndMortyTest extends RequestSpecificationAllTests {
     @Tag("RickAndMorty")
     public void testComparingCharacters() {
 
-        getDataCharacter1(keyUrl, characterId);//данные 1 персонажа
-        getLastEpisodeNumber(); //получили номер последнего эпизода
-        getLastCharacterId();//получили номер последнего персонажа в эпизоде
-        getDataCharacter2();//данные 2 персонажа
+        getDataCharacter1(keyUrl, characterId);
+        getLastEpisodeNumber();
+        getLastCharacterId();
+        getDataCharacter2();
         comparingCharacters();
 
     }

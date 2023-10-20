@@ -14,10 +14,12 @@ public class AssertionUtils {
         try {
 
             assertEquals(expected, actual, message);
+
         } catch (AssertionError e) {
+
             saveScreenshot(message);
+
             throw e;
-//            step("Шаг провален: " + message, Status.FAILED);
         }
     }
 
@@ -26,8 +28,11 @@ public class AssertionUtils {
         try {
 
             assertTrue(actual.contains(expected), message);
+
         } catch (AssertionError e) {
+
             saveScreenshot(message);
+
             throw e;
         }
     }
@@ -35,23 +40,30 @@ public class AssertionUtils {
     @Step("Проверяем видимость: \"{element}\" , в случае отсутствия выводим: \"{message}\"")
     public static void assertTrueVisible(SelenideElement element, String message) {
         try {
+
             element.shouldBe(Condition.visible);
+
             assertTrue(element.is(Condition.visible), message);
+
         } catch (AssertionError e) {
+
             saveScreenshot(message);
+
             throw e;
         }
     }
+
     @Step("Проверяем на наличие значения : \"{value}\" , в случае отсутствия выводим: \"{message}\"")
     public static void assertNotNullUtil(String value, String message) {
         try {
-            assertNotNull(value,  message);
+
+            assertNotNull(value, message);
 
         } catch (AssertionError e) {
+
             saveScreenshot(message);
+
             throw e;
         }
     }
-
-
 }

@@ -12,7 +12,7 @@ public class OpenUrlApi {
 
         String url = getConfigValue(keyUrl);
 
-        step("Открываем Url: " + url + ", и проверяем statusCode и pathSchema.",()->{
+        step("Открываем Url: " + url + ", и проверяем statusCode и pathSchema.", () -> {
             responseGet(requestSpecificationAllTests(url), null, endpoint, method, statusCode, pathSchema);
         });
     }

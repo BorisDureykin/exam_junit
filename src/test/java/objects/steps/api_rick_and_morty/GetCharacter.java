@@ -22,19 +22,6 @@ public class GetCharacter extends ResponseAllTests {
         this.lastEpisodeNumber = lastEpisodeNumber;
     }
 
-    public String getSpecies() {
-        return species;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public String getLastEpisodeNumber() {
-        return lastEpisodeNumber;
-    }
-
-
     @Step("Получение данных персонажа с id : \"{id}\"")
     public static GetCharacter getCharacter(String id, RequestSpecification request) {
 
@@ -56,11 +43,23 @@ public class GetCharacter extends ResponseAllTests {
 
         String lastEpisodeNumber = lastEpisodeUrl.substring(lastEpisodeUrl.lastIndexOf("/") + 1);
 
-        String message = "Персонаж ID: "+id + " раса персонажа: "+ species + ", место нахождения персонажа: "+ location  + ", последний эпизод где появлялся персонаж: "+ lastEpisodeNumber;
+        String message = "Персонаж ID: " + id + " раса персонажа: " + species + ", место нахождения персонажа: " + location + ", последний эпизод где появлялся персонаж: " + lastEpisodeNumber;
 
-        saveMessage("Характеристики персонажа" ,message);
+        saveMessage("Характеристики персонажа", message);
 
         return new GetCharacter(species, location, lastEpisodeNumber);
+    }
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getLastEpisodeNumber() {
+        return lastEpisodeNumber;
     }
 
 

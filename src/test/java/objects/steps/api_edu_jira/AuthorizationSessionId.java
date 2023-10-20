@@ -32,14 +32,14 @@ public class AuthorizationSessionId extends ResponseAllTests {
 
             int statusCode1 = response.getStatusCode();
 
-            if(statusCode1 == 200){
+            if (statusCode1 == 200) {
                 String responseBody = response.getBody().asString();
 
                 JSONObject jsonObject = new JSONObject(responseBody);
 
                 String sesionId = jsonObject.getJSONObject("session").getString("value");
 
-                String message = "Успешная авторизация sesionId: " + sesionId ;
+                String message = "Успешная авторизация sesionId: " + sesionId;
 
                 saveMessage("Успешная авторизация", message);
             } else {

@@ -20,7 +20,7 @@ public class CreateIssueApi {
     public static String createIssueApi(String endpoint, String method, String statusCode, String pathSchema) {
 
         try {
-            RequestSpecification request =  baseAuthorizationRequest();
+            RequestSpecification request = baseAuthorizationRequest();
 
             String body = new String(Files.readAllBytes(Paths.get("src/test/resources/ifellow_edu_jira/bodyCreateIssue.json")));
 
@@ -30,7 +30,7 @@ public class CreateIssueApi {
 
             issueIdApi = new JSONObject(responseBody).getString("id");
 
-            String message = "Создана задач с ID: " + issueIdApi ;
+            String message = "Создана задач с ID: " + issueIdApi;
 
             saveMessage("ID задачи", message);
 

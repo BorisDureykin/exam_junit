@@ -15,6 +15,7 @@ public class SearchIssue extends EdujiraIfellowRuSecureDashboard {
     public static void searchIssue(String taskName) {
 
         inputFieldEnterAndVerifyingData(searchInput, taskName, "Поиск", '1');
+
         buttonCheckVisibilityClick(issueLink, "issueLink");
     }
 
@@ -22,8 +23,11 @@ public class SearchIssue extends EdujiraIfellowRuSecureDashboard {
     public static void checkAffectedIssue(String affectedVersion) {
 
         assertTrueVisible(issueVersions, "Не отображается  поле 'затронуты версии'");
+
         String actualVersion = issueVersions.getOwnText();
+
         assertEqualUtil(affectedVersion, actualVersion, "Ошибка заполнения поля 'затронуты версии'");
+
         saveScreenshot("Сверяем поле 'затронуты версии', ожидаемое значение: " + affectedVersion);
     }
 
@@ -32,8 +36,11 @@ public class SearchIssue extends EdujiraIfellowRuSecureDashboard {
     public static void checkStatusIssue(String issuesStatus) {
 
         assertTrueVisible(issueStatus, "Не отображается  поле 'статус задачи'");
+
         String actualStatus = issueStatus.getOwnText();
+
         assertEqualUtil(issuesStatus, actualStatus, "Не верный статус задачи");
-        saveScreenshot("Сверяем статус задачи, ожидаемое значение: "+issuesStatus);
+
+        saveScreenshot("Сверяем статус задачи, ожидаемое значение: " + issuesStatus);
     }
 }

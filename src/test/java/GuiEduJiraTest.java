@@ -27,14 +27,14 @@ import static util.Config.getConfigValue;
 public class GuiEduJiraTest extends WebHooks {
 
     private final String keyUrl = "UrlIfellowJira";
-    private String login = getConfigValue("login");
-    private String password = getConfigValue("password");
     private final String pageTitle = "System Dashboard - Jira";
     private final String nameCoToProject = "TEST";
     private final String taskName = "TestSelenium";
     private final String affectedVersion = "Version 2.0";
     private final String issuesStatus = "Сделать";
-    private String inputTopic = "Create Issue student AT14 GUI";
+    private String login = getConfigValue("login");
+    private String password = getConfigValue("password");
+    private String inputTopic = "Create Issue student AT14 GUI Junit";
 
     @Test
     @Story("Open Url GUI")
@@ -72,6 +72,7 @@ public class GuiEduJiraTest extends WebHooks {
         invalidAuthorization();
 
     }
+
     @Test
     @Story("Authorization GUI")
     @DisplayName("Авторизация ненверный пароль")
@@ -146,7 +147,7 @@ public class GuiEduJiraTest extends WebHooks {
     public void testCreateIssueInvalidTopic() {
         openUrl(keyUrl);
         authorization(login, password);
-        inputTopic="";
+        inputTopic = "";
         createIssue(inputTopic);
     }
 }

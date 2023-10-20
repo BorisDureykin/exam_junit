@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static objects.steps.api_all_request_respone.OpenUrlApi.openUrlApi;
+import static objects.steps.api_reqres.CreateUser.checkNameAndJob;
 import static objects.steps.api_reqres.CreateUser.createUser;
 import static objects.steps.api_reqres.UpdateJsonObject.updateJsonObject;
 
@@ -22,6 +23,7 @@ public class ApiReqresTest extends RequestSpecificationAllTests {
     private String method;
     private String statusCode;
     private String pathSchema;
+
     @Test
     @DisplayName("Проверка доступности сайта Reqres.in")
     @Tag("Api")
@@ -32,7 +34,7 @@ public class ApiReqresTest extends RequestSpecificationAllTests {
 
         method = "GET";
 
-        statusCode="200";
+        statusCode = "200";
 
         pathSchema = "reqres/SchemaOpenUrl.json";
 
@@ -52,10 +54,11 @@ public class ApiReqresTest extends RequestSpecificationAllTests {
 
         method = "POST";
 
-        statusCode="201";
+        statusCode = "201";
 
         pathSchema = "reqres/SchemaCreateUserReqres.json";
 
-        createUser( keyUrl, nameValue, jobValue, endpoint, method, statusCode, pathSchema );
+        createUser(keyUrl, nameValue, jobValue, endpoint, method, statusCode, pathSchema);
+        checkNameAndJob();
     }
 }

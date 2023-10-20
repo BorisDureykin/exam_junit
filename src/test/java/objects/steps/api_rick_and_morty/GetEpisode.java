@@ -27,9 +27,9 @@ public class GetEpisode extends ResponseAllTests {
 
         String lastCharacterId = lastEpisodeUrl.substring(lastEpisodeUrl.lastIndexOf("/") + 1);
 
-        String message = "В эпизоде ID: "+ id + " последний персонаж c ID: "+ lastCharacterId;
+        String message = "В эпизоде ID: " + id + " последний персонаж c ID: " + lastCharacterId;
 
-        saveMessage("Данные эпизода" ,message);
+        saveMessage("Данные эпизода", message);
 
         return lastCharacterId;
     }

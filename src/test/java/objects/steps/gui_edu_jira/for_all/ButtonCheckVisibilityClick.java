@@ -13,7 +13,9 @@ public class ButtonCheckVisibilityClick {
     public static void buttonCheckVisibilityClick(@NotNull SelenideElement element, String elementName) {
 
         assertTrueVisible(element, elementName + " не отражается на странице или не кликабельна.");
+
         element.click();
-        saveScreenshot("Дожидаемся отображения кнопки: \""+elementName+"\" и нажимаем на неё");
+
+        saveScreenshot("Дожидаемся отображения кнопки: \"" + elementName + "\" и нажимаем на неё");
     }
 }

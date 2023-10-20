@@ -15,10 +15,13 @@ public class InputFieldEnterAndVerifyingData {
     public static void inputFieldEnterAndVerifyingData(@NotNull SelenideElement element, String valueElement, String elementName, char key) {
 
         assertTrueVisible(element, "Поле ввода " + elementName + " Не отображается или не активно.");
+
         element.sendKeys(valueElement);
+
         assertEqualUtil(valueElement, element.getValue(), "В поле " + elementName + " Введено неверное значение.");
 
         if (key == '1') {
+
             element.pressEnter();
         }
         saveScreenshot("Дожидаемся отображения поля ввода: " + elementName + " и вводим: " + valueElement);

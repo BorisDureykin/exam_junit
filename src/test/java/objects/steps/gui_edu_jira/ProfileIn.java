@@ -14,6 +14,7 @@ public class ProfileIn extends EdujiraIfellowRuSecureDashboard {
     public static void profileIn() {
 
         buttonCheckVisibilityClick(profileBatton, "profileButton");
+
         buttonCheckVisibilityClick(profileLink, "profileLink");
     }
 
@@ -21,7 +22,9 @@ public class ProfileIn extends EdujiraIfellowRuSecureDashboard {
     public static void checkProfileIn(String login) {
 
         assertTrueVisible(nameUser, "Не отображается имя пользователя");
-        assertEqualUtil(nameUser.getOwnText(), login, "Неверное имя пользователя, ожидаемое значение: "+login);
+
+        assertEqualUtil(nameUser.getOwnText(), login, "Неверное имя пользователя, ожидаемое значение: " + login);
+
         saveScreenshot("Сверяем имя пользователя, ожидаемое значение:  " + login);
     }
 }

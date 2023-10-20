@@ -14,11 +14,15 @@ public class InputIframe {
 
     @Step("Дожидаемся отображения iFrame: \"{name}\" и вводим в поле ввода: \"{valueText}\"")
     public static void inputIframe(String name, String valueText) {
+
         switchTo().frame(iframeInput(name));
+
         iframeInputField.shouldBe(Condition.enabled).setValue(valueText);
+
         assertEqualUtil(valueText, iframeInputField.getOwnText(), "В iFrame " + name + " Введено неверное значение.");
-        saveScreenshot("Дожидаемся отображения iFrame: " +name+ " и вводим в поле ввода: "+valueText);
+
+        saveScreenshot("Дожидаемся отображения iFrame: " + name + " и вводим в поле ввода: " + valueText);
+
         switchTo().defaultContent();
     }
-
 }

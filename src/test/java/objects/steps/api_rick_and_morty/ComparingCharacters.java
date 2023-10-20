@@ -12,7 +12,7 @@ import static util.Config.getConfigValue;
 
 public class ComparingCharacters {
 
-   private static RequestSpecification request;
+    private static RequestSpecification request;
     private static GetCharacter getCharacter1;
     private static GetCharacter getCharacter2;
     private static String lastEpisodeNumber;
@@ -20,33 +20,39 @@ public class ComparingCharacters {
 
 
     @Step("Получение характеристик персонажа с ID: {characterId}")
-    public static void getDataCharacter1(String keyUrl, String characterId){
+    public static void getDataCharacter1(String keyUrl, String characterId) {
+
         request = requestSpecificationAllTests(getConfigValue(keyUrl));
+
         getCharacter1 = getCharacter(characterId, request);
     }
 
     @Step("получили номер последнего эпизода")
-    public static void getLastEpisodeNumber(){
+    public static void getLastEpisodeNumber() {
+
         lastEpisodeNumber = getCharacter1.getLastEpisodeNumber();
-        String message = "Номер последнего эпизода где появлялся персонаж: "+lastEpisodeNumber;
-        saveMessage("Номер последнего эпизода" ,message);
+
+        String message = "Номер последнего эпизода где появлялся персонаж: " + lastEpisodeNumber;
+
+        saveMessage("Номер последнего эпизода", message);
     }
 
     public static void getLastCharacterId() {
         step("Получение номер последнего персонажа в эпизоде: \"" + lastEpisodeNumber, () -> {
+
             characterId2 = getEpisode(lastEpisodeNumber, request);
-            String message = "В эпизоде: "+lastEpisodeNumber+ "Номер последнего персонажа: "+characterId2;
-            saveMessage("Номер последнего персонажа" ,message);
+
+            String message = "В эпизоде: " + lastEpisodeNumber + "Номер последнего персонажа: " + characterId2;
+
+            saveMessage("Номер последнего персонажа", message);
         });
     }
 
 
     @Step("Получение характеристик персонажа с ID: {characterId2}")
-    public static void getDataCharacter2(){
+    public static void getDataCharacter2() {
 
         getCharacter2 = getCharacter(characterId2, request);
-
-
     }
 
     @Step("Сравнение данных персонажей")
@@ -61,9 +67,12 @@ public class ComparingCharacters {
         String location2 = getCharacter2.getLocation();
 
         String messageSpecies = species.equals(species2) ? "Принадлежат к одной расе: " + species : "Расы разные: " + species + " и " + species2;
-        saveMessage("Принадлежность к расам" ,messageSpecies);
+
+        saveMessage("Принадлежность к расам", messageSpecies);
+
         String messageLocation = location.equals(location2) ? "Находятся в одной локации: " + location : "Локации разные: " + location + " и " + location2;
-        saveMessage("Локации персонажей" ,messageLocation);
+
+        saveMessage("Локации персонажей", messageLocation);
 
     }
 

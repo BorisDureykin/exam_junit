@@ -21,7 +21,7 @@ public class TransitionByStatusesIssueApi {
     public static void transitionByStatuses() {
 
         try {
-            RequestSpecification request =  baseAuthorizationRequest();
+            RequestSpecification request = baseAuthorizationRequest();
 
             String jsonString = new String(Files.readAllBytes(Paths.get("src/test/resources/ifellow_edu_jira/statuses.json")));
 
@@ -49,13 +49,13 @@ public class TransitionByStatusesIssueApi {
     @Step("Перевод задачи Id: \"{issueId}\" в статус \"{transitionStatusName}\"")
     public static void transitionByStatusesIssueApi(RequestSpecification request, String issueId, String transitionStatusId, String transitionStatusName) throws IOException {
 
-            String endpoint = "/rest/api/2/issue/" + issueId + "/transitions";
+        String endpoint = "/rest/api/2/issue/" + issueId + "/transitions";
 
-            String body = new String(Files.readAllBytes(Paths.get("src/test/resources/ifellow_edu_jira/bodyTransition.json")));
+        String body = new String(Files.readAllBytes(Paths.get("src/test/resources/ifellow_edu_jira/bodyTransition.json")));
 
-            body = body.replace("transitionStatusId", transitionStatusId);
+        body = body.replace("transitionStatusId", transitionStatusId);
 
-            ResponseAllTests.responseGet(request, body, endpoint, "POST", "204", null);
+        ResponseAllTests.responseGet(request, body, endpoint, "POST", "204", null);
 
     }
 
@@ -71,7 +71,9 @@ public class TransitionByStatusesIssueApi {
         String gettingStatusName = new JSONObject(response.getBody().asString()).optJSONObject("fields").optJSONObject("status").optString("name");
 
         String message = "Ожидаемый статус: " + transitionStatusName + " Фактический статус: " + gettingStatusName;
-        saveMessage("Сверяем статус задачи с ожидаемым" ,message);
+
+        saveMessage("Сверяем статус задачи с ожидаемым", message);
+
         assertEquals(transitionStatusName, gettingStatusName);
 
     }
