@@ -1,6 +1,9 @@
 # Экзаменационное задание 1 junit, maven, selenide, allure
 # Добавил тесты с Rest Assured + junit + allure
 
+### Запуск тестов через терминал: mvn clean test
+
+
 ## Файл src/main/java/util/Config.java
 - Реализована конфигурация системы на использование файла src/test/resources/application.properties
 
